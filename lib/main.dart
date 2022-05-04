@@ -20,7 +20,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   late ExcuserAPI api;
 
-  late ExcuseDB instance = ExcuseDB();
+  late ExcuseDatabase instance = ExcuseDatabase();
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +39,7 @@ class _MyAppState extends State<MyApp> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   Excuse excuse = snapshot.data as Excuse;
+                  
                   return Column(
                     children: [
                       const Text('Random Excuse'),
