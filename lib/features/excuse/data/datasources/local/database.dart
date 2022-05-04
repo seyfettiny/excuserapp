@@ -5,6 +5,8 @@ import 'package:drift/native.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 
+import '../../models/excuse_model.dart';
+
 part 'database.g.dart';
 
 class ExcuseDB extends Table {

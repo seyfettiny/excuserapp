@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../models/excuse_model.dart';
+import '../../models/excuse_model.dart';
 
 class ExcuserAPI {
   static const String _baseUrl = 'https://excuser.herokuapp.com/v1/excuse';
