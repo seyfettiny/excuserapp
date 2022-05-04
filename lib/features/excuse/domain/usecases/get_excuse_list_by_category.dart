@@ -2,10 +2,10 @@ import 'package:excuserapp/features/excuse/domain/repositories/excuse_repository
 
 import '../entities/excuse.dart';
 
-class GetUseCaseExcusesByCategory {
+class GetUseCaseExcuseListByCategory {
   final IExcuseRepository repository;
-  GetUseCaseExcusesByCategory(this.repository);
+  GetUseCaseExcuseListByCategory(this.repository);
   Future<List<Excuse>> call(String category, int id) async {
-    return await repository.getExcusesByCategory(category, id);
+    return await repository.getExcuseListByCategory(category, id);
   }
 }
