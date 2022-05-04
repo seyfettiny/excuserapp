@@ -3,6 +3,7 @@ import 'package:excuserapp/features/excuse/data/datasources/local/database.dart'
 import 'package:excuserapp/features/excuse/data/datasources/remote/excuser_api.dart';
 import 'package:excuserapp/features/excuse/domain/entities/excuse.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,11 +55,29 @@ class _MyAppState extends State<MyApp> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Expanded(
-                                child: Center(
-                                  child: Text(
-                                    excuse.excuse.toString(),
-                                    textAlign: TextAlign.center,
-                                  ),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Center(
+                                        child: Text(
+                                          excuse.excuse.toString(),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () async {
+                                        await Clipboard.setData(ClipboardData(
+                                            text: excuse.excuse.toString()));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                          content: Text('Copied to clipboard'),
+                                        ));
+                                      },
+                                      icon: const Icon(Icons.copy),
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                  ],
                                 ),
                               ),
                               OutlinedButton(
