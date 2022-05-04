@@ -9,10 +9,17 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  late ExcuserAPI api;
-  late ExcuseDB instance = ExcuseDB();
+class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late ExcuserAPI api;
+
+  late ExcuseDB instance = ExcuseDB();
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +30,49 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Material App Bar'),
         ),
-        body: Center(
+        body: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.all(8),
           child: FutureBuilder(
               future: api.getRandomExcuse(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   Excuse excuse = snapshot.data as Excuse;
-                  return Text(excuse.excuse.toString());
+                  return Column(
+                    children: [
+                      const Text('Random Excuse'),
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Container(
+                          width: 300,
+                          height: 150,
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Expanded(
+                                child: Center(
+                                  child: Text(
+                                    excuse.excuse.toString(),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                              OutlinedButton(
+                                onPressed: () {
+                                  setState(() {});
+                                },
+                                child: const Text('Get another one'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
                 }
                 return const CircularProgressIndicator();
               }),
