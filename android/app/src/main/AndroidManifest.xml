@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.syfttny.excuserapp">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="excuserapp"
         android:name="${applicationName}"
