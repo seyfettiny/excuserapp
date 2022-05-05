@@ -1,102 +1,151 @@
 import 'package:dio/dio.dart';
+import 'package:drift_db_viewer/drift_db_viewer.dart';
 import 'package:excuserapp/features/excuse/data/datasources/local/database.dart';
 import 'package:excuserapp/features/excuse/data/datasources/remote/excuser_api.dart';
-import 'package:excuserapp/features/excuse/domain/entities/excuse.dart';
+import 'package:excuserapp/features/excuse/data/models/excuse_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'features/excuse/presentation/router.dart';
+
+late ExcuseDatabase instance;
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  instance = ExcuseDatabase();
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  MyApp({Key? key}) : super(key: key);
-
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
   @override
-  State<MyApp> createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Material App',
+      onGenerateRoute: MyRouter.generateRoute,
+      home: HomeScreen(),
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
+class HomeScreen extends StatefulWidget {
+  HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   late ExcuserAPI api;
 
-  late ExcuseDatabase instance = ExcuseDatabase();
+  String getFromDB = "";
 
   @override
   Widget build(BuildContext context) {
     api = ExcuserAPI(Dio());
-    return MaterialApp(
-      title: 'Material App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
-        ),
-        body: Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.all(8),
-          child: FutureBuilder(
-              future: api.getRandomExcuse(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  Excuse excuse = snapshot.data as Excuse;
-                  
-                  return Column(
-                    children: [
-                      const Text('Random Excuse'),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Container(
-                          width: 300,
-                          height: 150,
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Center(
-                                        child: Text(
-                                          excuse.excuse.toString(),
-                                          textAlign: TextAlign.center,
-                                        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Material App Bar'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed('/dbViewer', arguments: instance);
+              },
+              icon: const Icon(Icons.storage_rounded)),
+        ],
+      ),
+      body: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(8),
+        child: FutureBuilder(
+            future: api.getRandomExcuse(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                ExcuseModel excuse = snapshot.data as ExcuseModel;
+
+                return Column(
+                  children: [
+                    const Text('Random Excuse'),
+                    Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Container(
+                        width: 300,
+                        height: 150,
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        excuse.excuse.toString(),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    IconButton(
-                                      onPressed: () async {
-                                        await Clipboard.setData(ClipboardData(
-                                            text: excuse.excuse.toString()));
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                          content: Text('Copied to clipboard'),
-                                        ));
-                                      },
-                                      icon: const Icon(Icons.copy),
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () async {
+                                      await Clipboard.setData(ClipboardData(
+                                          text: excuse.excuse.toString()));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                        content: Text('Copied to clipboard'),
+                                      ));
+                                    },
+                                    icon: const Icon(Icons.copy),
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                ],
                               ),
-                              OutlinedButton(
-                                onPressed: () {
-                                  setState(() {});
-                                },
-                                child: const Text('Get another one'),
-                              ),
-                            ],
-                          ),
+                            ),
+                            OutlinedButton(
+                              onPressed: () {
+                                setState(() {});
+                              },
+                              child: const Text('Get another one'),
+                            ),
+                            OutlinedButton(
+                              onPressed: () {
+                                instance
+                                    .insertExcuse(excuse)
+                                    .then((value) => print('inserted'))
+                                    .onError(
+                                        (error, stackTrace) => print(error));
+                              },
+                              child: const Text('Save this'),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  );
-                }
-                return const CircularProgressIndicator();
-              }),
-        ),
+                    ),
+                    Card(
+                      child: Column(
+                        children: [
+                          OutlinedButton(
+                            onPressed: () {
+                              instance.getRandomExcuse().then((value) {
+                                setState(() {
+                                  getFromDB = value.excuse.toString();
+                                });
+                              });
+                            },
+                            child: const Text('Get random saved'),
+                          ),
+                          Text(getFromDB),
+                        ],
+                      ),
+                    )
+                  ],
+                );
+              }
+              return const CircularProgressIndicator();
+            }),
       ),
     );
   }

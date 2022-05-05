@@ -26,4 +26,5 @@ class ExcuseModel extends Excuse {
         "excuse": excuse,
         "category": category,
       };
+    
 }

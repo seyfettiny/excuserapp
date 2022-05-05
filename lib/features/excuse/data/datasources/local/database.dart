@@ -6,12 +6,14 @@ import 'package:drift/native.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 
+import '../../../domain/entities/excuse.dart';
 import 'dao/excuse_dao.dart';
 
 part 'database.g.dart';
 
 @DriftDatabase(tables: [ExcuseDAO])
 class ExcuseDatabase extends _$ExcuseDatabase {
+
   ExcuseDatabase() : super(_openConnection());
   @override
   int get schemaVersion => 1;
@@ -19,10 +21,12 @@ class ExcuseDatabase extends _$ExcuseDatabase {
 
   Future<ExcuseDAOData> getRandomExcuse() async {
     Random rand = Random();
-    late final int randomId;
+    int randomId = 0;
     select(excuseDAO).get().then((list) {
-      randomId = rand.nextInt(list.length) + 1;
+      print(list.length);
+      randomId = rand.nextInt(list.length);
     });
+    print(randomId);
     return await (select(excuseDAO)..where((tbl) => tbl.id.equals(randomId)))
         .getSingle();
   }
@@ -49,6 +53,17 @@ class ExcuseDatabase extends _$ExcuseDatabase {
           ..where((tbl) => tbl.category.equals(category))
           ..limit(limit))
         .get();
+  }
+
+  Future<void> insertExcuse(Excuse excuse) async {
+    await into(excuseDAO).insert(
+      ExcuseDAOCompanion.insert(
+        id: excuse.id,
+        excuse: excuse.excuse,
+        category: excuse.category,
+      ),
+      mode: InsertMode.replace,
+    );
   }
 }
 
