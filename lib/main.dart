@@ -12,14 +12,14 @@ late ExcuseDatabase instance;
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   instance = ExcuseDatabase();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Material App',
       onGenerateRoute: MyRouter.generateRoute,
       home: HomeScreen(),
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -112,11 +112,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             OutlinedButton(
                               onPressed: () {
-                                instance
-                                    .insertExcuse(excuse)
-                                    .then((value) => print('inserted'))
-                                    .onError(
-                                        (error, stackTrace) => print(error));
+                                // instance
+                                //     .insertExcuse(excuse)
+                                //     .then((value) => print('inserted'))
+                                //     .onError(
+                                //         (error, stackTrace) => print(error));
                               },
                               child: const Text('Save this'),
                             ),
@@ -131,6 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onPressed: () {
                               instance.getRandomExcuse().then((value) {
                                 setState(() {
+                                  print('value: $value');
                                   getFromDB = value.excuse.toString();
                                 });
                               });

@@ -1,9 +1,10 @@
 CREATE TABLE EXCUSE (
-    id INT NOT NULL PRIMARY Key 
+    id INT NOT NULL PRIMARY KEY,
     excuse TEXT,
     category TEXT
-)   
-getExcuseById: SELECT * FROM EXCUSE WHERE id = ?
-getExcuseByCategory: SELECT * FROM EXCUSE WHERE category = ?
-getAllExcuses: SELECT * FROM EXCUSE
-getRandomExcuseList: SELECT * FROM EXCUSE
+);
+getRandomExcuse: SELECT * FROM EXCUSE ORDER BY RANDOM() LIMIT 1;
+getExcuseById: SELECT * FROM EXCUSE WHERE id = :id;
+getExcuseByCategory: SELECT * FROM EXCUSE WHERE category = :category;
+getAllExcuses: SELECT * FROM EXCUSE;
+getRandomExcuseList: SELECT * FROM EXCUSE;
