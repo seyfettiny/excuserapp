@@ -112,11 +112,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             OutlinedButton(
                               onPressed: () {
-                                // instance
-                                //     .insertExcuse(excuse)
-                                //     .then((value) => print('inserted'))
-                                //     .onError(
-                                //         (error, stackTrace) => print(error));
+                                instance
+                                    .insertExcuse(excuse.id, excuse.excuse,
+                                        excuse.category)
+                                    .then((value) => print('inserted'))
+                                    .onError(
+                                        (error, stackTrace) => print(error));
                               },
                               child: const Text('Save this'),
                             ),
@@ -129,12 +130,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           OutlinedButton(
                             onPressed: () {
-                              instance.getRandomExcuse().then((value) {
-                                setState(() {
-                                  print('value: $value');
-                                  getFromDB = value.excuse.toString();
+                              var selectable = instance.getRandomExcuse()
+                                ..getSingle().then((value) {
+                                  setState(() {
+                                    print('value: $value');
+                                    getFromDB = value.excuse.toString();
+                                  });
                                 });
-                              });
                             },
                             child: const Text('Get random saved'),
                           ),

@@ -1,10 +1,11 @@
-CREATE TABLE EXCUSE (
+CREATE TABLE EXCUSEDATABASE (
     id INT NOT NULL PRIMARY KEY,
     excuse TEXT,
     category TEXT
 );
-getRandomExcuse: SELECT * FROM EXCUSE ORDER BY RANDOM() LIMIT 1;
-getExcuseById: SELECT * FROM EXCUSE WHERE id = :id;
-getExcuseByCategory: SELECT * FROM EXCUSE WHERE category = :category;
-getAllExcuses: SELECT * FROM EXCUSE;
-getRandomExcuseList: SELECT * FROM EXCUSE;
+getRandomExcuse: SELECT * FROM EXCUSEDATABASE ORDER BY RANDOM() LIMIT 1;
+insertExcuse: INSERT INTO EXCUSEDATABASE (id, excuse, category) VALUES (:id, :excusee, :category);
+-- getExcuseById: SELECT * FROM EXCUSEDATABASE WHERE id = :id;
+-- getExcuseByCategory: SELECT * FROM EXCUSEDATABASE WHERE category = :category;
+-- getAllExcuses: SELECT * FROM EXCUSEDATABASE;
+-- getRandomExcuseList: SELECT * FROM EXCUSEDATABASE;
