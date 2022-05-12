@@ -24,7 +24,7 @@ class ExcuserAPI {
   }
 
   Future<ExcuseModel> getRandomExcuseByCategory(String category) async {
-    final response = await _dio.get(_baseUrl + 'excuse/$category');
+    final response = await _dio.get(_baseUrl + '/$category/');
     return ExcuseModel.fromJson(response.data[0]);
   }
 
