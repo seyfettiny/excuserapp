@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../data/models/excuse_model.dart';
+
 part 'excuse_state.dart';
 
 class ExcuseCubit extends Cubit<ExcuseState> {

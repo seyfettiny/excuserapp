@@ -8,3 +8,13 @@ abstract class ExcuseState extends Equatable {
 }
 
 class ExcuseInitial extends ExcuseState {}
+class ExcuseLoading extends ExcuseState {}
+class ExcuseLoaded extends ExcuseState {
+  final ExcuseModel excuse;
+
+  const ExcuseLoaded({required this.excuse});
+
+  @override
+  List<Object> get props => [excuse];
+}
+class ExcuseError extends ExcuseState {}
