@@ -28,8 +28,9 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
       child: FutureBuilder(
         future: api.getRandomExcuseByCategory(_excuseCategory),
         builder: (context, snapshot) {
-          ExcuseModel excuse = snapshot.data as ExcuseModel;
           if (snapshot.hasData) {
+            ExcuseModel excuse = snapshot.data as ExcuseModel;
+
             return Column(
               children: [
                 const Text('Excuse by Category'),
@@ -38,57 +39,60 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Container(
-                    width: 300,
-                    height: 150,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: 200,
                     padding: const EdgeInsets.all(8.0),
-                    child: Wrap(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ChoiceChip(
-                          label: const Text('family'),
-                          selected: _excuseCategory == 'family',
-                          onSelected: (bool isSelected) {
-                            setState(() {
-                              _excuseCategory = 'family';
-                            });
-                          },
+                        Expanded(
+                          child: Center(child: Text(excuse.excuse)),
                         ),
-                        ChoiceChip(
-                          label: const Text('office'),
-                          selected: _excuseCategory == 'office',
-                          onSelected: (bool isSelected) {
-                            setState(() {
-                              _excuseCategory = 'office';
-                            });
-                          },
+                        Wrap(
+                          children: [
+                            ChoiceChip(
+                              label: const Text('family'),
+                              selected: _excuseCategory == 'family',
+                              onSelected: (bool isSelected) {
+                                _excuseCategory = 'family';
+                              },
+                            ),
+                            ChoiceChip(
+                              label: const Text('office'),
+                              selected: _excuseCategory == 'office',
+                              onSelected: (bool isSelected) {
+                                _excuseCategory = 'office';
+                              },
+                            ),
+                            ChoiceChip(
+                              label: const Text('children'),
+                              selected: _excuseCategory == 'children',
+                              onSelected: (bool isSelected) {
+                                _excuseCategory = 'children';
+                              },
+                            ),
+                            ChoiceChip(
+                              label: const Text('college'),
+                              selected: _excuseCategory == 'college',
+                              onSelected: (bool isSelected) {
+                                _excuseCategory = 'college';
+                              },
+                            ),
+                            ChoiceChip(
+                              label: const Text('party'),
+                              selected: _excuseCategory == 'party',
+                              onSelected: (bool isSelected) {
+                                _excuseCategory = 'party';
+                              },
+                            ),
+                          ],
                         ),
-                        ChoiceChip(
-                          label: const Text('children'),
-                          selected: _excuseCategory == 'children',
-                          onSelected: (bool isSelected) {
-                            setState(() {
-                              _excuseCategory = 'children';
-                            });
+                        TextButton(
+                          onPressed: () {
+                            setState(() {});
                           },
+                          child: const Text('Get another one'),
                         ),
-                        ChoiceChip(
-                          label: const Text('college'),
-                          selected: _excuseCategory == 'college',
-                          onSelected: (bool isSelected) {
-                            setState(() {
-                              _excuseCategory = 'college';
-                            });
-                          },
-                        ),
-                        ChoiceChip(
-                          label: const Text('party'),
-                          selected: _excuseCategory == 'party',
-                          onSelected: (bool isSelected) {
-                            setState(() {
-                              _excuseCategory = 'party';
-                            });
-                          },
-                        ),
-                        Text(excuse.excuse),
                       ],
                     ),
                   ),

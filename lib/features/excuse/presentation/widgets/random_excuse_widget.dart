@@ -40,7 +40,7 @@ class _RandomExcuseWidgetState extends State<RandomExcuseWidget> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Container(
-                  width: 300,
+                  width: MediaQuery.of(context).size.width * 0.9,
                   height: 150,
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -73,21 +73,26 @@ class _RandomExcuseWidgetState extends State<RandomExcuseWidget> {
                           ],
                         ),
                       ),
-                      OutlinedButton(
-                        onPressed: () {
-                          setState(() {});
-                        },
-                        child: const Text('Get another one'),
-                      ),
-                      OutlinedButton(
-                        onPressed: () {
-                          instance
-                              .insertExcuse(
-                                  excuse.id, excuse.excuse, excuse.category)
-                              .then((value) => print('inserted'))
-                              .onError((error, stackTrace) => print(error));
-                        },
-                        child: const Text('Save this'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          OutlinedButton(
+                            onPressed: () {
+                              setState(() {});
+                            },
+                            child: const Text('Get another one'),
+                          ),
+                          OutlinedButton(
+                            onPressed: () {
+                              instance
+                                  .insertExcuse(
+                                      excuse.id, excuse.excuse, excuse.category)
+                                  .then((value) => print('inserted'))
+                                  .onError((error, stackTrace) => print(error));
+                            },
+                            child: const Text('Save this'),
+                          ),
+                        ],
                       ),
                     ],
                   ),
