@@ -7,8 +7,18 @@ abstract class ExcuseState extends Equatable {
   List<Object> get props => [];
 }
 
+enum ExcuseStatus { initial, loading, success, failure }
+extension ExcuseStatusX on ExcuseStatus {
+  bool get isInitial => this == ExcuseStatus.initial;
+  bool get isLoading => this == ExcuseStatus.loading;
+  bool get isSuccess => this == ExcuseStatus.success;
+  bool get isFailure => this == ExcuseStatus.failure;
+}
+
 class ExcuseInitial extends ExcuseState {}
+
 class ExcuseLoading extends ExcuseState {}
+
 class ExcuseLoaded extends ExcuseState {
   final Excuse excuse;
 
@@ -21,4 +31,12 @@ class ExcuseLoaded extends ExcuseState {
   @override
   List<Object> get props => [excuse];
 }
-class ExcuseError extends ExcuseState {}
+
+class ExcuseError extends ExcuseState {
+  final String error;
+
+  const ExcuseError(this.error);
+
+  @override
+  List<Object> get props => [error];
+}

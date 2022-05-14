@@ -11,8 +11,8 @@ import 'features/excuse/domain/usecases/get_random_excuse_by_category.dart';
 
 final locator = GetIt.instance;
 void setupLocator() {
-  locator.registerLazySingleton(() => IExcuseRepository);
-  locator.registerLazySingleton(() => ExcuseRepository(locator()));
+  locator.registerLazySingleton<IExcuseRepository>(
+      () => ExcuseRepository(locator()));
   locator.registerLazySingleton(() => GetRandomExcuseUseCase(locator()));
   locator
       .registerLazySingleton(() => GetRandomExcuseByCategoryUseCase(locator()));

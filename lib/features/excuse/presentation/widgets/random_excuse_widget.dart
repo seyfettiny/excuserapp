@@ -22,10 +22,19 @@ class _RandomExcuseWidgetState extends State<RandomExcuseWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ExcuseCubit, ExcuseState>(builder: (context, state) {
+      print(state.toString());
+      if (state is ExcuseInitial) {
+        context.read<ExcuseCubit>().getRandomExcuse();
+      }
       if (state is ExcuseLoading) {
         return const Center(child: CircularProgressIndicator());
       } else if (state is ExcuseError) {
-        return const Center(child: Icon(Icons.error));
+        print(state.error);
+        return const Center(
+            child: Icon(
+          Icons.error_outline,
+          color: Colors.red,
+        ));
       } else if (state is ExcuseLoaded) {
         final excuse = state.excuse;
         return Column(

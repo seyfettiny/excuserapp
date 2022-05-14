@@ -20,8 +20,8 @@ class ExcuseCubit extends Cubit<ExcuseState> {
     try {
       final result = await getRandomExcuseUseCase.execute();
       emit(ExcuseLoaded(excuse: result));
-    } on Exception catch (_) {
-      emit(ExcuseError());
+    } on Exception catch (e) {
+      emit(ExcuseError(e.toString()));
     }
   }
 
@@ -30,8 +30,8 @@ class ExcuseCubit extends Cubit<ExcuseState> {
     try {
       final result = await getRandomExcuseByCategoryUseCase.execute(category);
       emit(ExcuseLoaded(excuse: result));
-    } on Exception catch (_) {
-      emit(ExcuseError());
+    } on Exception catch (e) {
+      emit(ExcuseError(e.toString()));
     }
   }
 }
