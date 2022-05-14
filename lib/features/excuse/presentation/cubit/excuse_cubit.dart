@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:excuserapp/features/excuse/domain/entities/excuse.dart';
-import 'package:excuserapp/features/excuse/domain/usecases/get_random_excuse.dart';
-import 'package:excuserapp/features/excuse/domain/usecases/get_random_excuse_by_category.dart';
+import '../../domain/entities/excuse.dart';
+import '../../domain/usecases/get_random_excuse.dart';
+import '../../domain/usecases/get_random_excuse_by_category.dart';
 
 part 'excuse_state.dart';
 

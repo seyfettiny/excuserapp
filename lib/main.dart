@@ -1,19 +1,16 @@
-import 'package:excuserapp/features/excuse/presentation/cubit/excuse_cubit.dart';
-import 'package:excuserapp/locator.dart';
+import 'features/excuse/data/datasources/local/database.dart';
+import 'features/excuse/presentation/cubit/excuse_cubit.dart';
+import 'locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'features/excuse/data/datasources/local/database.dart';
 import 'features/excuse/presentation/router.dart';
 import 'features/excuse/presentation/widgets/excuse_by_category_widget.dart';
 import 'features/excuse/presentation/widgets/random_excuse_widget.dart';
 
-late ExcuseDatabase instance;
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
-  //TODO: remove this
-  instance = ExcuseDatabase();
   runApp(const MyApp());
 }
 
@@ -44,7 +41,7 @@ class HomeScreen extends StatelessWidget {
           IconButton(
               onPressed: () {
                 Navigator.of(context)
-                    .pushNamed('/dbViewer', arguments: instance);
+                    .pushNamed('/dbViewer', arguments: locator<ExcuseDatabase>);
               },
               icon: const Icon(Icons.storage_rounded)),
         ],

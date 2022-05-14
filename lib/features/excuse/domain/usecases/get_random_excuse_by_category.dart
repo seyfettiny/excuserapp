@@ -1,4 +1,4 @@
-import 'package:excuserapp/features/excuse/domain/repositories/excuse_repository.dart';
+import '../repositories/excuse_repository.dart';
 
 import '../entities/excuse.dart';
 

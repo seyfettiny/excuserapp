@@ -1,7 +1,6 @@
-import 'package:excuserapp/features/excuse/data/datasources/remote/excuser_api.dart';
-import 'package:excuserapp/features/excuse/domain/entities/excuse.dart';
-
+import '../../domain/entities/excuse.dart';
 import '../../domain/repositories/excuse_repository.dart';
+import '../datasources/remote/excuser_api.dart';
 
 class ExcuseRepository implements IExcuseRepository {
   final ExcuserAPI api;

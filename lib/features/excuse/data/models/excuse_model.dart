@@ -1,4 +1,4 @@
-import 'package:excuserapp/features/excuse/domain/entities/excuse.dart';
+import '../../domain/entities/excuse.dart';
 
 class ExcuseModel extends Excuse {
   ExcuseModel(

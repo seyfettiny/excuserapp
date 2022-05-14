@@ -16,7 +16,6 @@ class ExcuserAPI {
   }
   Future<ExcuseModel> getRandomExcuse() async {
     final response = await _dio.get(_baseUrl);
-    print(response.statusCode);
     return ExcuseModel.fromJson(response.data[0]);
   }
 
