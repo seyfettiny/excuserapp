@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import '../../../../main.dart';
 import '../../data/datasources/remote/excuser_api.dart';
 import '../../data/models/excuse_model.dart';
-
+import 'package:excuserapp/locator.dart';
 class RandomExcuseWidget extends StatefulWidget {
   const RandomExcuseWidget({Key? key}) : super(key: key);
 

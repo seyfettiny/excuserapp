@@ -1,4 +1,4 @@
-import 'package:excuserapp/features/excuse/locator.dart';
+import 'package:excuserapp/locator.dart';
 import 'package:flutter/material.dart';
 
 import 'features/excuse/data/datasources/local/database.dart';
