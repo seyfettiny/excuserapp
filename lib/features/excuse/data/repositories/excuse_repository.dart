@@ -1,35 +1,35 @@
+import 'package:excuserapp/features/excuse/data/datasources/remote/excuser_api.dart';
 import 'package:excuserapp/features/excuse/domain/entities/excuse.dart';
 
 import '../../domain/repositories/excuse_repository.dart';
 
 class ExcuseRepository implements IExcuseRepository {
+  final ExcuserAPI api;
+
+  ExcuseRepository(this.api);
   @override
-  Future<Excuse> getExcuseById(int id) {
-    // TODO: implement getExcuseById
-    throw UnimplementedError();
+  Future<Excuse> getExcuseById(int id) async {
+    return await api.getExcuseById(id);
   }
 
   @override
-  Future<List<Excuse>> getExcuseListByCategory(String category, int limit) {
-    // TODO: implement getExcuseListByCategory
-    throw UnimplementedError();
+  Future<List<Excuse>> getExcuseListByCategory(
+      String category, int limit) async {
+    return await api.getExcuseListByCategory(category, limit);
   }
 
   @override
-  Future<Excuse> getRandomExcuse() {
-    // TODO: implement getRandomExcuse
-    throw UnimplementedError();
+  Future<Excuse> getRandomExcuse() async {
+    return await api.getRandomExcuse();
   }
 
   @override
-  Future<Excuse> getRandomExcuseByCategory(String category) {
-    // TODO: implement getRandomExcuseByCategory
-    throw UnimplementedError();
+  Future<Excuse> getRandomExcuseByCategory(String category) async {
+    return await api.getRandomExcuseByCategory(category);
   }
 
   @override
-  Future<List<Excuse>> getRandomExcuseList(int limit) {
-    // TODO: implement getRandomExcuseList
-    throw UnimplementedError();
+  Future<List<Excuse>> getRandomExcuseList(int limit) async {
+    return await api.getRandomExcuseList(limit);
   }
 }

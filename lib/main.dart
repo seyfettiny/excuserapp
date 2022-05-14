@@ -1,5 +1,7 @@
+import 'package:excuserapp/features/excuse/presentation/cubit/excuse_cubit.dart';
 import 'package:excuserapp/locator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'features/excuse/data/datasources/local/database.dart';
 import 'features/excuse/presentation/router.dart';
@@ -51,11 +53,14 @@ class HomeScreen extends StatelessWidget {
         alignment: Alignment.center,
         padding: const EdgeInsets.all(8),
         child: SingleChildScrollView(
-          child: Column(
-            children: const [
-              RandomExcuseWidget(),
-              ExcuseByCategoryWidget(),
-            ],
+          child: BlocProvider(
+            create: (context) => locator<ExcuseCubit>(),
+            child: Column(
+              children: const [
+                RandomExcuseWidget(),
+                ExcuseByCategoryWidget(),
+              ],
+            ),
           ),
         ),
       ),
