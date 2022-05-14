@@ -10,7 +10,7 @@ abstract class ExcuseState extends Equatable {
 class ExcuseInitial extends ExcuseState {}
 class ExcuseLoading extends ExcuseState {}
 class ExcuseLoaded extends ExcuseState {
-  final ExcuseModel excuse;
+  final Excuse excuse;
 
   const ExcuseLoaded({required this.excuse});
 

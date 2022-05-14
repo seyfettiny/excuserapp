@@ -2,9 +2,9 @@ import 'package:excuserapp/features/excuse/domain/repositories/excuse_repository
 
 import '../entities/excuse.dart';
 
-class GetRandomExcuseByCategory {
+class GetRandomExcuseByCategoryUseCase {
   final IExcuseRepository repository;
-  GetRandomExcuseByCategory(this.repository);
+  GetRandomExcuseByCategoryUseCase(this.repository);
   Future<Excuse> execute(String category) async {
     return await repository.getRandomExcuseByCategory(category);
   }
