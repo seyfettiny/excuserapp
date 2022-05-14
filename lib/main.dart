@@ -1,3 +1,4 @@
+import 'package:excuserapp/features/excuse/locator.dart';
 import 'package:flutter/material.dart';
 
 import 'features/excuse/data/datasources/local/database.dart';
@@ -8,6 +9,8 @@ import 'features/excuse/presentation/widgets/random_excuse_widget.dart';
 late ExcuseDatabase instance;
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  setupLocator();
+  //TODO: remove this
   instance = ExcuseDatabase();
   runApp(const MyApp());
 }
@@ -47,11 +50,13 @@ class HomeScreen extends StatelessWidget {
       body: Container(
         alignment: Alignment.center,
         padding: const EdgeInsets.all(8),
-        child: Column(
-          children: const [
-            RandomExcuseWidget(),
-            ExcuseByCategoryWidget(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: const [
+              RandomExcuseWidget(),
+              ExcuseByCategoryWidget(),
+            ],
+          ),
         ),
       ),
     );

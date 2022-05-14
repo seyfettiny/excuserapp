@@ -14,6 +14,10 @@ class ExcuseLoaded extends ExcuseState {
 
   const ExcuseLoaded({required this.excuse});
 
+  ExcuseLoaded copyWith({Excuse? excuse}) {
+    return ExcuseLoaded(excuse: excuse ?? this.excuse);
+  }
+
   @override
   List<Object> get props => [excuse];
 }

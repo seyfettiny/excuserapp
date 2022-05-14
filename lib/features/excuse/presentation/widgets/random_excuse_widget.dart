@@ -29,6 +29,7 @@ class _RandomExcuseWidgetState extends State<RandomExcuseWidget> {
     return FutureBuilder(
       future: api.getRandomExcuse(),
       builder: (context, snapshot) {
+        print(snapshot.error);
         if (snapshot.hasData) {
           ExcuseModel excuse = snapshot.data as ExcuseModel;
 

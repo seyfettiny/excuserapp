@@ -18,7 +18,14 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
   void initState() {
     super.initState();
     //TODO: refactor this
-    api = ExcuserAPI(Dio());
+    api = ExcuserAPI(
+      Dio(
+        BaseOptions(
+          connectTimeout: 5000,
+          receiveTimeout: 5000,
+        ),
+      ),
+    );
   }
 
   @override

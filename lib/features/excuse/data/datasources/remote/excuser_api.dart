@@ -7,9 +7,16 @@ class ExcuserAPI {
 
   final Dio _dio;
 
-  ExcuserAPI(this._dio);
+  ExcuserAPI(this._dio) {
+    _dio.options.connectTimeout = 5000;
+    _dio.options.receiveTimeout = 5000;
+    _dio.options.headers = {
+      'Content-Type': 'application/json',
+    };
+  }
   Future<ExcuseModel> getRandomExcuse() async {
     final response = await _dio.get(_baseUrl);
+    print(response.statusCode);
     return ExcuseModel.fromJson(response.data[0]);
   }
 
