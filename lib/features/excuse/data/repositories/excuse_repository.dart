@@ -35,9 +35,8 @@ class ExcuseRepository implements IExcuseRepository {
             .insertExcuse(result.id, result.excuse, result.category)
             .onError((error, stackTrace) => 0);
         return result;
-      } on Exception catch (e) {
-        print(e);
-        throw e;
+      } catch (e) {
+        throw Exception(e);
       }
     } else {
       var daoResult = await database.getRandomExcuse().getSingle();
@@ -50,6 +49,17 @@ class ExcuseRepository implements IExcuseRepository {
 
   @override
   Future<Excuse> getRandomExcuseByCategory(String category) async {
+    if (await internetConnectionChecker.hasConnection) {
+      try {
+        final result = await api.getRandomExcuseByCategory(category);
+        await database
+            .insertExcuse(result.id, result.excuse, result.category)
+            .onError((error, stackTrace) => 0);
+        return result;
+      } catch (e) {
+        throw Exception(e);
+      }
+    }
     return await api.getRandomExcuseByCategory(category);
   }
 
