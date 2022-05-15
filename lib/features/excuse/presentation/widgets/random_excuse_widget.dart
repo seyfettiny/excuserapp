@@ -1,16 +1,18 @@
-import 'package:shimmer/shimmer.dart';
+import 'package:excuserapp/features/excuse/presentation/widgets/loading_widget.dart';
 
 import '../../domain/entities/excuse.dart';
-import '../cubit/excuse_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../cubit/randomexcuse/random_excuse_cubit.dart';
+
 class RandomExcuseWidget extends StatelessWidget {
-  const RandomExcuseWidget({Key? key}) : super(key: key);
+  RandomExcuseWidget({Key? key}) : super(key: key);
+  var _excuse = '';
+
   @override
   Widget build(BuildContext context) {
-    Excuse _excuse = Excuse(id: 1, excuse: '', category: '');
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
@@ -28,50 +30,24 @@ class RandomExcuseWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Center(
-                      child: BlocBuilder<ExcuseCubit, ExcuseState>(
+                      child: BlocBuilder<RandomExcuseCubit, RandomExcuseState>(
                         builder: (context, state) {
-                          if (state is ExcuseInitial) {
-                            context.read<ExcuseCubit>().getRandomExcuse();
+                          if (state is RandomExcuseInitial) {
+                            context.read<RandomExcuseCubit>().getRandomExcuse();
                           }
-                          if (state is ExcuseLoading) {
-                            return SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.7,
-                              height: 40.0,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Shimmer.fromColors(
-                                    baseColor: Colors.grey,
-                                    highlightColor: Colors.grey[300]!,
-                                    child: Container(
-                                      color: Colors.black.withAlpha(100),
-                                      width: 220.0,
-                                      height: 16.0,
-                                    ),
-                                  ),
-                                  Shimmer.fromColors(
-                                    baseColor: Colors.grey,
-                                    highlightColor: Colors.grey[300]!,
-                                    child: Container(
-                                      color: Colors.black.withAlpha(100),
-                                      width: 150.0,
-                                      height: 16.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          } else if (state is ExcuseError) {
+                          if (state is RandomExcuseLoading) {
+                            return const LoadingWidget();
+                          } else if (state is RandomExcuseError) {
                             return const Center(
                                 child: Icon(
                               Icons.error_outline,
                               color: Colors.red,
                             ));
-                          } else if (state is ExcuseLoaded) {
-                            _excuse = state.excuse;
+                          } else if (state is RandomExcuseLoaded) {
+                            _excuse = state.excuse.excuse;
+                            print(state.excuse.category);
                             return Text(
-                              _excuse.excuse.toString(),
+                              _excuse,
                               textAlign: TextAlign.center,
                             );
                           } else {
@@ -83,11 +59,11 @@ class RandomExcuseWidget extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () async {
-                      await Clipboard.setData(
-                          ClipboardData(text: _excuse.excuse.toString()));
+                      await Clipboard.setData(ClipboardData(text: _excuse));
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('Copied to clipboard'),
                       ));
+                      print(_excuse);
                     },
                     icon: const Icon(Icons.copy),
                     color: Theme.of(context).primaryColor,
@@ -97,7 +73,7 @@ class RandomExcuseWidget extends StatelessWidget {
             ),
             OutlinedButton(
               onPressed: () {
-                context.read<ExcuseCubit>().getRandomExcuse();
+                context.read<RandomExcuseCubit>().getRandomExcuse();
               },
               child: const Text('Get another one'),
             ),

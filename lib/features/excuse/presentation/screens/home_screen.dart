@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../locator.dart';
 import '../../data/datasources/local/database.dart';
-import '../cubit/excuse_cubit.dart';
+import '../cubit/randomcategoryexcuse/cubit/random_category_excuse_cubit.dart';
+import '../cubit/randomexcuse/random_excuse_cubit.dart';
 import '../widgets/excuse_by_category_widget.dart';
 import '../widgets/random_excuse_widget.dart';
 
@@ -31,15 +32,18 @@ class HomeScreen extends StatelessWidget {
         alignment: Alignment.center,
         padding: const EdgeInsets.all(8),
         child: SingleChildScrollView(
-          child: BlocProvider(
-            create: (context) => locator<ExcuseCubit>(),
-            child: Column(
-              children: const [
-                RandomExcuseWidget(),
-                SizedBox(height: 40),
-                ExcuseByCategoryWidget(),
-              ],
-            ),
+          child: Column(
+            children: [
+              BlocProvider(
+                create: (context) => locator<RandomExcuseCubit>(),
+                child: RandomExcuseWidget(),
+              ),
+              const SizedBox(height: 40),
+              BlocProvider(
+                create: (context) => locator<RandomCategoryExcuseCubit>(),
+                child: const ExcuseByCategoryWidget(),
+              ),
+            ],
           ),
         ),
       ),
