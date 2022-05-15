@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           fontFamily: 'Montserrat',
           colorScheme: ColorScheme.fromSwatch().copyWith(
-              brightness: Brightness.dark,
+              brightness: Brightness.light,
               primary: const Color(0xFF8403F8),
               secondary: const Color(0xFFE106FF))),
       home: const HomeScreen(),

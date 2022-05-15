@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +19,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        backgroundColor: Colors.black.withAlpha(20),
         title: const Text(
           'ExcuserApp',
           style: TextStyle(fontWeight: FontWeight.w600),
@@ -36,21 +40,30 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/31.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
         alignment: Alignment.center,
         padding: const EdgeInsets.all(8),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              BlocProvider(
-                create: (context) => locator<RandomExcuseCubit>(),
-                child: RandomExcuseWidget(),
-              ),
-              const SizedBox(height: 40),
-              BlocProvider(
-                create: (context) => locator<RandomCategoryExcuseCubit>(),
-                child: const ExcuseByCategoryWidget(),
-              ),
-            ],
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                BlocProvider(
+                  create: (context) => locator<RandomExcuseCubit>(),
+                  child: RandomExcuseWidget(),
+                ),
+                const SizedBox(height: 40),
+                BlocProvider(
+                  create: (context) => locator<RandomCategoryExcuseCubit>(),
+                  child: const ExcuseByCategoryWidget(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
