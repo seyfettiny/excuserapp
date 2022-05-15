@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:excuserapp/env/env.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -185,7 +186,7 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
                 Center(
                   child: OutlinedButton(
                     onPressed: () {
-                      if (_adCounter >= 4) {
+                      if (_adCounter >= 6) {
                         _interstitialAd.show();
                         _initAd();
                       } else {

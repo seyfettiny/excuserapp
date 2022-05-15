@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:excuserapp/env/env.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
   final BannerAd _bannerAd = BannerAd(
     adUnitId: Platform.isAndroid
-        ? 'ca-app-pub-3940256099942544/6300978111'
+        ? Env.bannerkey
         : 'ca-app-pub-3940256099942544/2934735716',
     size: AdSize.banner,
     request: const AdRequest(),

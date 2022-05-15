@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import '../../../../env/env.dart';
 import '../cubit/randomexcuse/random_excuse_cubit.dart';
 
 class RandomExcuseWidget extends StatelessWidget {
@@ -59,7 +60,6 @@ class RandomExcuseWidget extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.9,
         borderRadius: BorderRadius.circular(24),
         blur: 2,
-        borderWidth: 0,
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,7 +107,7 @@ class RandomExcuseWidget extends StatelessWidget {
                 Center(
                   child: OutlinedButton(
                     onPressed: () {
-                      if (_adCounter >= 4) {
+                      if (_adCounter >= 6) {
                         _interstitialAd.show();
                         _initAd();
                       } else {
