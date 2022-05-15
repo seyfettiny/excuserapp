@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:excuserapp/features/excuse/presentation/widgets/loading_widget.dart';
 import 'package:glass_kit/glass_kit.dart';
@@ -113,7 +112,6 @@ class RandomExcuseWidget extends StatelessWidget {
                         _initAd();
                       } else {
                         _adCounter++;
-                        print(_adCounter);
                       }
                       context.read<RandomExcuseCubit>().getRandomExcuse();
                     },

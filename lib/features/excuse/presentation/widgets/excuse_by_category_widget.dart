@@ -1,9 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glass_kit/glass_kit.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-import '../../domain/entities/excuse.dart';
 import '../cubit/randomcategoryexcuse/cubit/random_category_excuse_cubit.dart';
 import 'loading_widget.dart';
 
@@ -17,9 +19,42 @@ class ExcuseByCategoryWidget extends StatefulWidget {
 class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
   var _excuseCategory = 'family';
   var _excuse = '';
+  var _adCounter = 0;
+  late InterstitialAd _interstitialAd;
+
   @override
   void initState() {
     super.initState();
+    _initAd();
+  }
+
+  void _initAd() {
+    InterstitialAd.load(
+      adUnitId: Platform.isAndroid
+          ? 'ca-app-pub-3940256099942544/1033173712'
+          : 'ca-app-pub-3940256099942544/4411468910',
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (InterstitialAd ad) {
+          // Keep a reference to the ad so you can show it later.
+          _interstitialAd = ad;
+          _interstitialAd.fullScreenContentCallback = FullScreenContentCallback(
+            onAdDismissedFullScreenContent: (ad) {
+              //_interstitialAd.dispose();
+              _adCounter = 0;
+            },
+            onAdFailedToShowFullScreenContent: (ad, error) {
+              //_interstitialAd.dispose();
+              _adCounter = 0;
+            },
+          );
+          _adCounter = 0;
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+          print('InterstitialAd failed to load: $error');
+        },
+      ),
+    );
   }
 
   @override
@@ -150,6 +185,12 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
                 Center(
                   child: OutlinedButton(
                     onPressed: () {
+                      if (_adCounter >= 4) {
+                        _interstitialAd.show();
+                        _initAd();
+                      } else {
+                        _adCounter++;
+                      }
                       context
                           .read<RandomCategoryExcuseCubit>()
                           .getRandomExcuseByCategory(_excuseCategory);

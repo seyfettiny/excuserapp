@@ -3,5 +3,6 @@ part 'env.g.dart';
 
 @Envify()
 abstract class Env {
-  static const key = _Env.key;
+  static const bannerkey = _Env.key;
+  static const interstitialkey = _Env.key;
 }
