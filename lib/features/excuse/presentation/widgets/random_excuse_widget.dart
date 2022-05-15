@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:excuserapp/features/excuse/presentation/widgets/loading_widget.dart';
@@ -6,12 +7,46 @@ import 'package:glass_kit/glass_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../cubit/randomexcuse/random_excuse_cubit.dart';
 
 class RandomExcuseWidget extends StatelessWidget {
-  RandomExcuseWidget({Key? key}) : super(key: key);
   var _excuse = '';
+  var _adCounter = 0;
+  late InterstitialAd _interstitialAd;
+
+  RandomExcuseWidget({Key? key}) : super(key: key) {
+    _initAd();
+  }
+  void _initAd() {
+    InterstitialAd.load(
+      adUnitId: Platform.isAndroid
+          ? 'ca-app-pub-3940256099942544/1033173712'
+          : 'ca-app-pub-3940256099942544/4411468910',
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (InterstitialAd ad) {
+          // Keep a reference to the ad so you can show it later.
+          _interstitialAd = ad;
+          _interstitialAd.fullScreenContentCallback = FullScreenContentCallback(
+            onAdDismissedFullScreenContent: (ad) {
+              //_interstitialAd.dispose();
+              _adCounter = 0;
+            },
+            onAdFailedToShowFullScreenContent: (ad, error) {
+              //_interstitialAd.dispose();
+              _adCounter = 0;
+            },
+          );
+          _adCounter = 0;
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+          print('InterstitialAd failed to load: $error');
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +71,10 @@ class RandomExcuseWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Center(
-                      child:
-                          BlocBuilder<RandomExcuseCubit, RandomExcuseState>(
+                      child: BlocBuilder<RandomExcuseCubit, RandomExcuseState>(
                         builder: (context, state) {
                           if (state is RandomExcuseInitial) {
-                            context
-                                .read<RandomExcuseCubit>()
-                                .getRandomExcuse();
+                            context.read<RandomExcuseCubit>().getRandomExcuse();
                           }
                           if (state is RandomExcuseLoading) {
                             return const LoadingWidget();
@@ -59,8 +91,7 @@ class RandomExcuseWidget extends StatelessWidget {
                             return Text(
                               _excuse,
                               textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             );
                           } else {
                             return const CircularProgressIndicator();
@@ -77,6 +108,13 @@ class RandomExcuseWidget extends StatelessWidget {
                 Center(
                   child: OutlinedButton(
                     onPressed: () {
+                      if (_adCounter >= 4) {
+                        _interstitialAd.show();
+                        _initAd();
+                      } else {
+                        _adCounter++;
+                        print(_adCounter);
+                      }
                       context.read<RandomExcuseCubit>().getRandomExcuse();
                     },
                     style: OutlinedButton.styleFrom(
@@ -96,8 +134,7 @@ class RandomExcuseWidget extends StatelessWidget {
                   child: IconButton(
                     onPressed: () async {
                       await Clipboard.setData(ClipboardData(text: _excuse));
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(const SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('Copied to clipboard'),
                       ));
                       print(_excuse);
