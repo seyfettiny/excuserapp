@@ -37,7 +37,6 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             ExcuseModel excuse = snapshot.data as ExcuseModel;
-
             return Column(
               children: [
                 const Text('Excuse by Category'),
@@ -60,36 +59,50 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
                             ChoiceChip(
                               label: const Text('family'),
                               selected: _excuseCategory == 'family',
+                              selectedColor: Colors.purple,
                               onSelected: (bool isSelected) {
-                                _excuseCategory = 'family';
+                                setState(() {
+                                  _excuseCategory = 'family';
+                                });
                               },
                             ),
                             ChoiceChip(
                               label: const Text('office'),
                               selected: _excuseCategory == 'office',
+                              selectedColor: Colors.purple,
                               onSelected: (bool isSelected) {
-                                _excuseCategory = 'office';
+                                setState(() {
+                                  _excuseCategory = 'office';
+                                });
                               },
                             ),
                             ChoiceChip(
                               label: const Text('children'),
                               selected: _excuseCategory == 'children',
+                              selectedColor: Colors.purple,
                               onSelected: (bool isSelected) {
-                                _excuseCategory = 'children';
+                                setState(() {
+                                  _excuseCategory = 'children';
+                                });
                               },
                             ),
                             ChoiceChip(
                               label: const Text('college'),
                               selected: _excuseCategory == 'college',
+                              selectedColor: Colors.purple,
                               onSelected: (bool isSelected) {
-                                _excuseCategory = 'college';
+                                setState(() {
+                                  _excuseCategory = 'college';
+                                });
                               },
                             ),
                             ChoiceChip(
                               label: const Text('party'),
                               selected: _excuseCategory == 'party',
                               onSelected: (bool isSelected) {
-                                _excuseCategory = 'party';
+                                setState(() {
+                                  _excuseCategory = 'party';
+                                });
                               },
                             ),
                           ],

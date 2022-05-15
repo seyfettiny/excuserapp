@@ -19,11 +19,12 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Material App Bar'),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .pushNamed('/dbViewer', arguments: locator<ExcuseDatabase>);
-              },
-              icon: const Icon(Icons.storage_rounded)),
+            onPressed: () {
+              Navigator.of(context).pushNamed('/dbViewer',
+                  arguments: locator<ExcuseDatabase>.call());
+            },
+            icon: const Icon(Icons.storage_rounded),
+          ),
         ],
       ),
       body: Container(

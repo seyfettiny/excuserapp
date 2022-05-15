@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Material App',
       onGenerateRoute: MyRouter.generateRoute,
-      theme: ThemeData(brightness: Brightness.dark),
+      theme: ThemeData(brightness: Brightness.dark, primarySwatch: Colors.lime),
       home: const HomeScreen(),
     );
   }
