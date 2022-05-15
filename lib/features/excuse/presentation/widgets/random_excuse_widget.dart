@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-import '../../../../env/env.dart';
 import '../cubit/randomexcuse/random_excuse_cubit.dart';
 
 class RandomExcuseWidget extends StatelessWidget {
