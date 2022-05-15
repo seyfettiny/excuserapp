@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
               brightness: Brightness.light,
               primary: const Color(0xFF8403F8),
               secondary: const Color(0xFFE106FF))),
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }

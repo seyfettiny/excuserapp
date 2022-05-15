@@ -41,7 +41,7 @@ class RandomExcuseWidget extends StatelessWidget {
           _adCounter = 0;
         },
         onAdFailedToLoad: (LoadAdError error) {
-          print('InterstitialAd failed to load: $error');
+          debugPrint('InterstitialAd failed to load: $error');
         },
       ),
     );
@@ -85,7 +85,7 @@ class RandomExcuseWidget extends StatelessWidget {
                             ));
                           } else if (state is RandomExcuseLoaded) {
                             _excuse = state.excuse.excuse;
-                            print(state.excuse.category);
+                            debugPrint(state.excuse.category);
 
                             return Text(
                               _excuse,
@@ -135,7 +135,7 @@ class RandomExcuseWidget extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('Copied to clipboard'),
                       ));
-                      print(_excuse);
+                      debugPrint(_excuse);
                     },
                     icon: const Icon(Icons.copy),
                     color: Colors.white,

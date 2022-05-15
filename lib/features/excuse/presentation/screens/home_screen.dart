@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
@@ -14,7 +15,7 @@ import '../widgets/excuse_by_category_widget.dart';
 import '../widgets/random_excuse_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({
+  const HomeScreen({
     Key? key,
   }) : super(key: key);
 
@@ -23,6 +24,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final _backgrounds = [
+    'assets/images/2.png',
+    'assets/images/5.jpg',
+    'assets/images/13.jpg',
+    'assets/images/16.jpg',
+    'assets/images/21.jpg',
+    'assets/images/31.jpg',
+    'assets/images/45.jpg',
+  ];
   final BannerAd _bannerAd = BannerAd(
     adUnitId: Platform.isAndroid
         ? 'ca-app-pub-3940256099942544/6300978111'
@@ -45,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var _randomIndex = Random().nextInt(_backgrounds.length);
     return Center(
       child: Scaffold(
         extendBodyBehindAppBar: true,
@@ -69,9 +80,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         body: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/31.jpg'),
+              image: AssetImage(_backgrounds[_randomIndex]),
               fit: BoxFit.cover,
             ),
           ),

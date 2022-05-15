@@ -51,7 +51,7 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
           _adCounter = 0;
         },
         onAdFailedToLoad: (LoadAdError error) {
-          print('InterstitialAd failed to load: $error');
+          debugPrint('InterstitialAd failed to load: $error');
         },
       ),
     );
@@ -215,7 +215,7 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('Copied to clipboard'),
                       ));
-                      print(_excuse);
+                      debugPrint(_excuse);
                     },
                     icon: const Icon(Icons.copy),
                     color: Colors.white,
