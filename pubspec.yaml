@@ -23,6 +23,7 @@ dependencies:
   shimmer: ^2.0.0
   glass_kit: ^2.0.1
   envify: any
+  google_mobile_ads: ^1.2.0
 
 flutter_icons:
   android: true
