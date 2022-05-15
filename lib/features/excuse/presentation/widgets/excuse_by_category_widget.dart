@@ -29,7 +29,7 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
       ),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.9,
-        height: 200,
+        height: 240,
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

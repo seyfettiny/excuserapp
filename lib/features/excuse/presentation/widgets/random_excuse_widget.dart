@@ -46,9 +46,11 @@ class RandomExcuseWidget extends StatelessWidget {
                           } else if (state is RandomExcuseLoaded) {
                             _excuse = state.excuse.excuse;
                             print(state.excuse.category);
+                            
                             return Text(
                               _excuse,
                               textAlign: TextAlign.center,
+                              style: TextStyle(fontFamily: 'Montserrat'),
                             );
                           } else {
                             return const CircularProgressIndicator();

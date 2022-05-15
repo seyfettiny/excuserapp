@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,15 +18,21 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Material App Bar'),
+        title: const Text(
+          'ExcuserApp',
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
+        centerTitle: true,
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed('/dbViewer',
-                  arguments: locator<ExcuseDatabase>.call());
-            },
-            icon: const Icon(Icons.storage_rounded),
-          ),
+          kDebugMode
+              ? IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/dbViewer',
+                        arguments: locator<ExcuseDatabase>.call());
+                  },
+                  icon: const Icon(Icons.storage_rounded),
+                )
+              : Container()
         ],
       ),
       body: Container(
