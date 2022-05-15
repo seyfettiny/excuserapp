@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'features/excuse/data/datasources/local/database.dart';
 import 'features/excuse/data/datasources/remote/excuser_api.dart';
 import 'features/excuse/domain/repositories/excuse_repository.dart';
 import 'features/excuse/presentation/cubit/excuse_cubit.dart';
 import 'package:get_it/get_it.dart';
-
 import 'features/excuse/data/repositories/excuse_repository.dart';
 import 'features/excuse/domain/usecases/get_random_excuse.dart';
 import 'features/excuse/domain/usecases/get_random_excuse_by_category.dart';
@@ -12,7 +12,7 @@ import 'features/excuse/domain/usecases/get_random_excuse_by_category.dart';
 final locator = GetIt.instance;
 void setupLocator() {
   locator.registerLazySingleton<IExcuseRepository>(
-      () => ExcuseRepository(locator()));
+      () => ExcuseRepository(locator(), locator(),locator()));
   locator.registerLazySingleton(() => GetRandomExcuseUseCase(locator()));
   locator
       .registerLazySingleton(() => GetRandomExcuseByCategoryUseCase(locator()));
@@ -35,4 +35,5 @@ void setupLocator() {
       ),
     ),
   );
+  locator.registerLazySingleton(() => InternetConnectionChecker());
 }

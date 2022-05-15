@@ -1,11 +1,20 @@
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+
+import 'package:excuserapp/features/excuse/data/datasources/local/database.dart';
+
 import '../../domain/entities/excuse.dart';
 import '../../domain/repositories/excuse_repository.dart';
 import '../datasources/remote/excuser_api.dart';
 
 class ExcuseRepository implements IExcuseRepository {
   final ExcuserAPI api;
-
-  ExcuseRepository(this.api);
+  final ExcuseDatabase database;
+  final InternetConnectionChecker internetConnectionChecker;
+  ExcuseRepository(
+    this.api,
+    this.database,
+    this.internetConnectionChecker,
+  );
   @override
   Future<Excuse> getExcuseById(int id) async {
     return await api.getExcuseById(id);
@@ -19,7 +28,24 @@ class ExcuseRepository implements IExcuseRepository {
 
   @override
   Future<Excuse> getRandomExcuse() async {
-    return await api.getRandomExcuse();
+    if (await internetConnectionChecker.hasConnection) {
+      try {
+        final result = await api.getRandomExcuse();
+        await database
+            .insertExcuse(result.id, result.excuse, result.category)
+            .onError((error, stackTrace) => 0);
+        return result;
+      } on Exception catch (e) {
+        print(e);
+        throw e;
+      }
+    } else {
+      var daoResult = await database.getRandomExcuse().getSingle();
+      return Excuse(
+          excuse: daoResult.excuse!,
+          category: daoResult.category!,
+          id: daoResult.id);
+    }
   }
 
   @override

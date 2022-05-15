@@ -36,6 +36,7 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: const [
                 RandomExcuseWidget(),
+                SizedBox(height: 40),
                 ExcuseByCategoryWidget(),
               ],
             ),
