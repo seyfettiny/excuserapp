@@ -36,7 +36,7 @@ dev_dependencies:
   drift_dev: ^1.5.2
   build_runner: ^2.1.8
   flutter_lints: ^1.0.0
-  icons_launcher: ^1.1.7
+  icons_launcher: ^1.1.8
   envify_generator: any
 
 flutter:

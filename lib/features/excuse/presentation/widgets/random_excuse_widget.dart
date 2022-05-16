@@ -30,11 +30,9 @@ class RandomExcuseWidget extends StatelessWidget {
           _interstitialAd = ad;
           _interstitialAd.fullScreenContentCallback = FullScreenContentCallback(
             onAdDismissedFullScreenContent: (ad) {
-              //_interstitialAd.dispose();
               _adCounter = 0;
             },
             onAdFailedToShowFullScreenContent: (ad, error) {
-              //_interstitialAd.dispose();
               _adCounter = 0;
             },
           );
