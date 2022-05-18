@@ -8,55 +8,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import '../../../../constants/app_constants.dart';
 import '../../../../locator.dart';
 import '../../data/datasources/local/database.dart';
 import '../cubit/randomcategoryexcuse/cubit/random_category_excuse_cubit.dart';
 import '../cubit/randomexcuse/random_excuse_cubit.dart';
 import '../widgets/excuse_by_category_widget.dart';
 import '../widgets/random_excuse_widget.dart';
+class HomeScreen extends StatelessWidget {
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({
-    Key? key,
-  }) : super(key: key);
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  final _backgrounds = [
-    'assets/images/2.png',
-    'assets/images/5.jpg',
-    'assets/images/13.jpg',
-    'assets/images/16.jpg',
-    'assets/images/21.jpg',
-    'assets/images/31.jpg',
-    'assets/images/45.jpg',
-  ];
-  final BannerAd _bannerAd = BannerAd(
-    adUnitId: Platform.isAndroid
-        ? 'ca-app-pub-3940256099942544/6300978111'
-        : 'ca-app-pub-3940256099942544/2934735716',
-    size: AdSize.banner,
-    request: const AdRequest(),
-    listener: const BannerAdListener(),
-  );
-  @override
-  void initState() {
-    super.initState();
-    _bannerAd.load();
-  }
-
-  @override
-  void dispose() {
-    _bannerAd.dispose();
-    super.dispose();
-  }
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var _randomIndex = Random().nextInt(_backgrounds.length);
+    var _randomIndex = Random().nextInt(AppConstants.backgrounds.length);
     return Center(
       child: Scaffold(
         extendBodyBehindAppBar: true,
@@ -88,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(_backgrounds[_randomIndex]),
+              image: AssetImage(AppConstants.backgrounds[_randomIndex]),
               fit: BoxFit.cover,
             ),
           ),
@@ -113,15 +79,51 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        bottomSheet: Container(
-          width: MediaQuery.of(context).size.width,
-          color: Colors.transparent,
-          child: SizedBox(
-            width: _bannerAd.size.width.toDouble(),
-            height: _bannerAd.size.height.toDouble(),
-            child: AdWidget(ad: _bannerAd),
-          ),
-        ),
+        bottomSheet: BannerAdWidget(),
+      ),
+    );
+  }
+}
+
+class BannerAdWidget extends StatefulWidget {
+  const BannerAdWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<BannerAdWidget> createState() => _BannerAdWidgetState();
+}
+
+class _BannerAdWidgetState extends State<BannerAdWidget> {
+  final BannerAd _bannerAd = BannerAd(
+    adUnitId: Platform.isAndroid
+        ? 'ca-app-pub-3940256099942544/6300978111'
+        : 'ca-app-pub-3940256099942544/2934735716',
+    size: AdSize.banner,
+    request: const AdRequest(),
+    listener: const BannerAdListener(),
+  );
+  @override
+  void initState() {
+    super.initState();
+    _bannerAd.load();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      color: Colors.transparent,
+      child: SizedBox(
+        width: _bannerAd.size.width.toDouble(),
+        height: _bannerAd.size.height.toDouble(),
+        child: AdWidget(ad: _bannerAd),
       ),
     );
   }
