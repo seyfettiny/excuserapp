@@ -20,42 +20,42 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
   var _excuseCategory = 'family';
   var _excuse = '';
   var _adCounter = 0;
-  late InterstitialAd _interstitialAd;
+  //late InterstitialAd _interstitialAd;
 
   @override
   void initState() {
     super.initState();
-    _initAd();
+    //_initAd();
   }
 
-  void _initAd() {
-    InterstitialAd.load(
-      adUnitId: Platform.isAndroid
-          ? 'ca-app-pub-3940256099942544/1033173712'
-          : 'ca-app-pub-3940256099942544/4411468910',
-      request: const AdRequest(),
-      adLoadCallback: InterstitialAdLoadCallback(
-        onAdLoaded: (InterstitialAd ad) {
-          // Keep a reference to the ad so you can show it later.
-          _interstitialAd = ad;
-          _interstitialAd.fullScreenContentCallback = FullScreenContentCallback(
-            onAdDismissedFullScreenContent: (ad) {
-              //_interstitialAd.dispose();
-              _adCounter = 0;
-            },
-            onAdFailedToShowFullScreenContent: (ad, error) {
-              //_interstitialAd.dispose();
-              _adCounter = 0;
-            },
-          );
-          _adCounter = 0;
-        },
-        onAdFailedToLoad: (LoadAdError error) {
-          debugPrint('InterstitialAd failed to load: $error');
-        },
-      ),
-    );
-  }
+  // void _initAd() {
+  //   InterstitialAd.load(
+  //     adUnitId: Platform.isAndroid
+  //         ? 'ca-app-pub-3940256099942544/1033173712'
+  //         : 'ca-app-pub-3940256099942544/4411468910',
+  //     request: const AdRequest(),
+  //     adLoadCallback: InterstitialAdLoadCallback(
+  //       onAdLoaded: (InterstitialAd ad) {
+  //         // Keep a reference to the ad so you can show it later.
+  //         _interstitialAd = ad;
+  //         _interstitialAd.fullScreenContentCallback = FullScreenContentCallback(
+  //           onAdDismissedFullScreenContent: (ad) {
+  //             //_interstitialAd.dispose();
+  //             _adCounter = 0;
+  //           },
+  //           onAdFailedToShowFullScreenContent: (ad, error) {
+  //             //_interstitialAd.dispose();
+  //             _adCounter = 0;
+  //           },
+  //         );
+  //         _adCounter = 0;
+  //       },
+  //       onAdFailedToLoad: (LoadAdError error) {
+  //         debugPrint('InterstitialAd failed to load: $error');
+  //       },
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -186,8 +186,8 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
                   child: OutlinedButton(
                     onPressed: () {
                       if (_adCounter >= 6) {
-                        _interstitialAd.show();
-                        _initAd();
+                        //_interstitialAd.show();
+                        //_initAd();
                       } else {
                         _adCounter++;
                       }
