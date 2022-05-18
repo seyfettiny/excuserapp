@@ -15,9 +15,8 @@ import '../cubit/randomcategoryexcuse/cubit/random_category_excuse_cubit.dart';
 import '../cubit/randomexcuse/random_excuse_cubit.dart';
 import '../widgets/excuse_by_category_widget.dart';
 import '../widgets/random_excuse_widget.dart';
+
 class HomeScreen extends StatelessWidget {
-
-
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
@@ -97,8 +96,8 @@ class BannerAdWidget extends StatefulWidget {
 class _BannerAdWidgetState extends State<BannerAdWidget> {
   final BannerAd _bannerAd = BannerAd(
     adUnitId: Platform.isAndroid
-        ? 'ca-app-pub-3940256099942544/6300978111'
-        : 'ca-app-pub-3940256099942544/2934735716',
+        ? Env.bannerkeyandroid
+        : Env.bannerkeyios,
     size: AdSize.banner,
     request: const AdRequest(),
     listener: const BannerAdListener(),
