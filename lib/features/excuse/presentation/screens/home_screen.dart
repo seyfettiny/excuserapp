@@ -69,6 +69,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           centerTitle: true,
           actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/settings');
+                },
+                icon: const Icon(Icons.settings)),
             kDebugMode
                 ? IconButton(
                     onPressed: () {

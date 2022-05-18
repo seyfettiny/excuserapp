@@ -24,6 +24,7 @@ dependencies:
   glass_kit: ^2.0.1
   envify: any
   google_mobile_ads: ^1.2.0
+  webview_flutter: ^3.0.4
 
 flutter_icons:
   android: true
