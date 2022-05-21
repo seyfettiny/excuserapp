@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'ExcuserApp',
+      title: 'Excuser',
       onGenerateRoute: MyRouter.generateRoute,
       theme: ThemeData(
           fontFamily: 'Montserrat',
