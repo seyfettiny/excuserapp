@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:translator/translator.dart';
 import 'features/excuse/data/datasources/local/database.dart';
 import 'features/excuse/data/datasources/remote/excuser_api.dart';
 import 'features/excuse/domain/repositories/excuse_repository.dart';
@@ -9,6 +10,7 @@ import 'features/excuse/domain/usecases/get_random_excuse.dart';
 import 'features/excuse/domain/usecases/get_random_excuse_by_category.dart';
 import 'features/excuse/presentation/cubit/randomcategoryexcuse/cubit/random_category_excuse_cubit.dart';
 import 'features/excuse/presentation/cubit/randomexcuse/random_excuse_cubit.dart';
+import 'util/excuse_translator.dart';
 
 final locator = GetIt.instance;
 void setupLocator() {
@@ -17,8 +19,10 @@ void setupLocator() {
   locator.registerLazySingleton(() => GetRandomExcuseUseCase(locator()));
   locator
       .registerLazySingleton(() => GetRandomExcuseByCategoryUseCase(locator()));
-  locator.registerLazySingleton(() => ExcuserAPI(locator()));
+  locator.registerLazySingleton(() => ExcuserAPI(locator(), locator()));
   locator.registerLazySingleton(() => ExcuseDatabase());
+  locator.registerLazySingleton(() => ExcuseTranslator(locator()));
+
 
   locator.registerFactory(() => RandomExcuseCubit(
         locator(),
@@ -38,4 +42,5 @@ void setupLocator() {
     ),
   );
   locator.registerLazySingleton(() => InternetConnectionChecker());
+  locator.registerLazySingleton(() => GoogleTranslator());
 }

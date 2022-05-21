@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-import '../../../../env/env.dart';
+import '../../../../constants/app_constants.dart';
 
 class BannerAdWidget extends StatefulWidget {
   const BannerAdWidget({
@@ -15,23 +13,15 @@ class BannerAdWidget extends StatefulWidget {
 }
 
 class _BannerAdWidgetState extends State<BannerAdWidget> {
-  final BannerAd _bannerAd = BannerAd(
-    adUnitId: Platform.isAndroid
-        ? Env.bannerkeyandroid
-        : Env.bannerkeyios,
-    size: AdSize.banner,
-    request: const AdRequest(),
-    listener: const BannerAdListener(),
-  );
   @override
   void initState() {
     super.initState();
-    _bannerAd.load();
+    //bannerAd.load();
   }
 
   @override
   void dispose() {
-    _bannerAd.dispose();
+    //_bannerAd.dispose();
     super.dispose();
   }
 
@@ -41,9 +31,9 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
       width: MediaQuery.of(context).size.width,
       color: Colors.transparent,
       child: SizedBox(
-        width: _bannerAd.size.width.toDouble(),
-        height: _bannerAd.size.height.toDouble(),
-        child: AdWidget(ad: _bannerAd),
+        width: AppConstants.bannerAd.size.width.toDouble(),
+        height: AppConstants.bannerAd.size.height.toDouble(),
+        child: AdWidget(ad: AppConstants.bannerAd),
       ),
     );
   }

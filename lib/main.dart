@@ -1,3 +1,4 @@
+import 'package:excuserapp/constants/app_constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,6 +16,7 @@ void main() {
     yield LicenseEntryWithLineBreaks(['assets/fonts'], license);
   });
   setupLocator();
+  AppConstants.bannerAd.load();
   runApp(const MyApp());
 }
 

@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.black.withAlpha(20),
           title: const Text(
-            'ExcuserApp',
+            'Excuser',
             style: TextStyle(fontWeight: FontWeight.w600),
           ),
           centerTitle: true,
@@ -76,7 +76,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-        bottomSheet: BannerAdWidget(),
+        bottomSheet: const BannerAdWidget(),
       ),
     );
   }

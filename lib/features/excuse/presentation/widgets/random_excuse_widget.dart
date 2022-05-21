@@ -7,15 +7,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:shimmer/shimmer.dart';
 
+import '../../../../locator.dart';
+import '../../../../util/excuse_translator.dart';
 import '../cubit/randomexcuse/random_excuse_cubit.dart';
 
 class RandomExcuseWidget extends StatelessWidget {
   var _excuse = '';
   var _adCounter = 0;
+  late final ExcuseTranslator translator;
   //late InterstitialAd _interstitialAd;
 
   RandomExcuseWidget({Key? key}) : super(key: key) {
+    translator = locator<ExcuseTranslator>();
     //_initAd();
   }
   // void _initAd() {
@@ -118,9 +123,23 @@ class RandomExcuseWidget extends StatelessWidget {
                         width: 2,
                       ),
                     ),
-                    child: const Text(
-                      'Get another one',
-                      style: TextStyle(color: Colors.white),
+                    child: FutureBuilder(
+                      future: translator.translateText('Another Excuse'),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return Shimmer.fromColors(
+                            highlightColor: Colors.grey[300]!,
+                            baseColor: Colors.grey[400]!,
+                            child: Container(
+                              width: 20,
+                            ),
+                          );
+                        }
+                        return Text(
+                          snapshot.data as String,
+                          style: const TextStyle(color: Colors.white),
+                        );
+                      },
                     ),
                   ),
                 ),

@@ -1,13 +1,14 @@
 import 'package:dio/dio.dart';
 
+import '../../../../../util/excuse_translator.dart';
 import '../../models/excuse_model.dart';
 
 class ExcuserAPI {
   static const String _baseUrl = 'https://excuser.herokuapp.com/v1/excuse';
-
+  final ExcuseTranslator excuseTranslator;
   final Dio _dio;
 
-  ExcuserAPI(this._dio) {
+  ExcuserAPI(this._dio, this.excuseTranslator) {
     _dio.options.connectTimeout = 5000;
     _dio.options.receiveTimeout = 5000;
     _dio.options.headers = {
@@ -16,7 +17,9 @@ class ExcuserAPI {
   }
   Future<ExcuseModel> getRandomExcuse() async {
     final response = await _dio.get(_baseUrl);
-    return ExcuseModel.fromJson(response.data[0]);
+    return await excuseTranslator.translateModel(
+      ExcuseModel.fromJson(response.data[0]),
+    );
   }
 
   Future<ExcuseModel> getExcuseById(int id) async {
@@ -31,7 +34,9 @@ class ExcuserAPI {
 
   Future<ExcuseModel> getRandomExcuseByCategory(String category) async {
     final response = await _dio.get(_baseUrl + '/$category/');
-    return ExcuseModel.fromJson(response.data[0]);
+    return await excuseTranslator.translateModel(
+      ExcuseModel.fromJson(response.data[0]),
+    );
   }
 
   Future<List<ExcuseModel>> getExcuseListByCategory(

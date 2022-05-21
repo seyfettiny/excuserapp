@@ -25,6 +25,8 @@ dependencies:
   envify: any
   google_mobile_ads: ^1.2.0
   webview_flutter: ^3.0.4
+  translator: ^0.1.7
+  devicelocale: ^0.5.2
 
 flutter_icons:
   android: true
