@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:excuserapp/constants/app_constants.dart';
 import 'package:excuserapp/locator.dart';
@@ -7,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glass_kit/glass_kit.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../cubit/randomcategoryexcuse/cubit/random_category_excuse_cubit.dart';
@@ -24,7 +22,7 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
   var _excuseCategory = 'family';
   var _excuse = '';
   var _adCounter = 0;
-  var _getAnotherExcuse = "";
+  final _getAnotherExcuse = "";
   //late InterstitialAd _interstitialAd;
   late final ExcuseTranslator translator;
 

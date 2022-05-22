@@ -22,7 +22,7 @@ class MyRouter {
         );
       case '/privacy_policy':
         return MaterialPageRoute(
-          builder: (_) => PrivacyPolicyWidget(),
+          builder: (_) => const PrivacyPolicyWidget(),
         );
       default:
         return MaterialPageRoute(
