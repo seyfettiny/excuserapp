@@ -23,7 +23,9 @@ class AppConstants {
   ];
   static final BannerAd bannerAd = BannerAd(
     //ca-app-pub-3940256099942544/6300978111
-    adUnitId: Platform.isAndroid ? Env.bannerkeyandroid : Env.bannerkeyios,
+    adUnitId: Platform.isAndroid
+        ? 'ca-app-pub-3940256099942544/6300978111'
+        : Env.bannerKeyIos,
     size: AdSize.banner,
     request: const AdRequest(),
     listener: const BannerAdListener(),

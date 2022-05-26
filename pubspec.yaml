@@ -27,6 +27,7 @@ dependencies:
   webview_flutter: ^3.0.4
   translator: ^0.1.7
   devicelocale: ^0.5.2
+  supabase_flutter: ^0.3.1
 
 flutter_icons:
   android: true
