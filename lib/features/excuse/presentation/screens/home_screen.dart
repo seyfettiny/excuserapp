@@ -69,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: 40),
                   BlocProvider(
                     create: (context) => locator<RandomCategoryExcuseCubit>(),
-                    child: const ExcuseByCategoryWidget(),
+                    child: ExcuseByCategoryWidget(),
                   ),
                 ],
               ),

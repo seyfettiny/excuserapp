@@ -5,6 +5,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../../../env/env.dart';
 
 class AppConstants {
+  static const String baseUrl = 'https://excuser.herokuapp.com/v1/excuse';
+
   static const backgrounds = [
     'assets/images/2.png',
     'assets/images/5.jpg',

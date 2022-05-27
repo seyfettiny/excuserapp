@@ -204,13 +204,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.2"
-  dio:
-    dependency: "direct main"
-    description:
-      name: dio
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.6"
   dotenv:
     dependency: transitive
     description:
@@ -777,13 +770,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  translator:
-    dependency: "direct main"
-    description:
-      name: translator
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.7"
   typed_data:
     dependency: transitive
     description:

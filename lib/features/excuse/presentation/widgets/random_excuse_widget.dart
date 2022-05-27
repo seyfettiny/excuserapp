@@ -1,4 +1,3 @@
-
 import 'package:excuserapp/features/excuse/presentation/widgets/loading_widget.dart';
 import 'package:glass_kit/glass_kit.dart';
 
@@ -8,19 +7,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../locator.dart';
-import '../../../../util/excuse_translator.dart';
 import '../cubit/randomexcuse/random_excuse_cubit.dart';
 
 class RandomExcuseWidget extends StatelessWidget {
   var _excuse = '';
   var _adCounter = 0;
-  late final ExcuseTranslator translator;
   //late InterstitialAd _interstitialAd;
 
-  RandomExcuseWidget({Key? key}) : super(key: key) {
-    translator = locator<ExcuseTranslator>();
-    //_initAd();
-  }
+  RandomExcuseWidget({Key? key}) : super(key: key);
+  //_initAd();
   // void _initAd() {
   //   InterstitialAd.load(
   //     adUnitId: Platform.isAndroid
@@ -85,8 +80,6 @@ class RandomExcuseWidget extends StatelessWidget {
                             ));
                           } else if (state is RandomExcuseLoaded) {
                             _excuse = state.excuse.excuse;
-                            debugPrint(state.excuse.category);
-
                             return Text(
                               _excuse,
                               textAlign: TextAlign.center,
@@ -121,23 +114,9 @@ class RandomExcuseWidget extends StatelessWidget {
                         width: 2,
                       ),
                     ),
-                    child: FutureBuilder(
-                      future: translator.translateText('Another Excuse'),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
-                          return Shimmer.fromColors(
-                            highlightColor: Colors.grey[300]!,
-                            baseColor: Colors.grey[400]!,
-                            child: Container(
-                              width: 20,
-                            ),
-                          );
-                        }
-                        return Text(
-                          snapshot.data as String,
-                          style: const TextStyle(color: Colors.white),
-                        );
-                      },
+                    child: const Text(
+                      'Another Excuse',
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
@@ -149,7 +128,6 @@ class RandomExcuseWidget extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('Copied to clipboard'),
                       ));
-                      debugPrint(_excuse);
                     },
                     icon: const Icon(Icons.copy),
                     color: Colors.white,

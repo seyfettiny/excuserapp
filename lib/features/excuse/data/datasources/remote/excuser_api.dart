@@ -1,49 +1,45 @@
-import 'package:dio/dio.dart';
+import 'dart:math';
 
-import '../../../../../util/excuse_translator.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import '../../models/excuse_model.dart';
 
 class ExcuserAPI {
-  static const String _baseUrl = 'https://excuser.herokuapp.com/v1/excuse';
-  final ExcuseTranslator excuseTranslator;
-  final Dio _dio;
-
-  ExcuserAPI(this._dio, this.excuseTranslator) {
-    _dio.options.connectTimeout = 5000;
-    _dio.options.receiveTimeout = 5000;
-    _dio.options.headers = {
-      'Content-Type': 'application/json',
-    };
-  }
+  final SupabaseClient _supabase;
+  ExcuserAPI(this._supabase);
   Future<ExcuseModel> getRandomExcuse() async {
-    final response = await _dio.get(_baseUrl);
-    return await excuseTranslator.translateModel(
-      ExcuseModel.fromJson(response.data[0]),
-    );
+    Random random = Random();
+    int randomNumber = random.nextInt(69) + 1;
+    final response =
+        await _supabase.from('en').select().eq('id', randomNumber).execute();
+    return ExcuseModel.fromJson(response.data[0]);
   }
 
   Future<ExcuseModel> getExcuseById(int id) async {
-    final response = await _dio.get(_baseUrl + '/id/$id');
-    return ExcuseModel.fromJson(response.data);
+    throw UnimplementedError();
   }
 
   Future<List<ExcuseModel>> getRandomExcuseList(int limit) async {
-    final response = await _dio.get(_baseUrl + '/$limit');
-    return response.data.map((e) => ExcuseModel.fromJson(e)).toList();
+    throw UnimplementedError();
   }
 
   Future<ExcuseModel> getRandomExcuseByCategory(String category) async {
-    final response = await _dio.get(_baseUrl + '/$category/');
-    return await excuseTranslator.translateModel(
-      ExcuseModel.fromJson(response.data[0]),
-    );
+    final categoryRange = await _supabase
+        .from('en')
+        .select()
+        .match({'category': category}).execute();
+    List categoryRangeList = categoryRange.data;
+    Random random = Random();
+    int randomNumber = random.nextInt(categoryRangeList.length - 1) + 1;
+    print('randomNumber ${randomNumber}');
+    final response =
+        await _supabase.from('en').select().eq('id', randomNumber).execute();
+    print('response ${response.data}');
+    return ExcuseModel.fromJson(response.data[0]);
   }
 
   Future<List<ExcuseModel>> getExcuseListByCategory(
       String category, int limit) async {
-    final response = await _dio.get(_baseUrl + '/$category/$limit');
-    return (response.data as List)
-        .map((excuse) => ExcuseModel.fromJson(excuse))
-        .toList();
+    throw UnimplementedError();
   }
 }

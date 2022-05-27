@@ -1,37 +1,19 @@
-
 import 'package:excuserapp/constants/app_constants.dart';
-import 'package:excuserapp/locator.dart';
-import 'package:excuserapp/util/excuse_translator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glass_kit/glass_kit.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../cubit/randomcategoryexcuse/cubit/random_category_excuse_cubit.dart';
 import 'loading_widget.dart';
 
-class ExcuseByCategoryWidget extends StatefulWidget {
-  const ExcuseByCategoryWidget({Key? key}) : super(key: key);
-
-  @override
-  State<ExcuseByCategoryWidget> createState() => _ExcuseByCategoryWidgetState();
-}
-
-class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
+class ExcuseByCategoryWidget extends StatelessWidget {
   var _excuseCategory = 'family';
   var _excuse = '';
   var _adCounter = 0;
-  final _getAnotherExcuse = "";
   //late InterstitialAd _interstitialAd;
-  late final ExcuseTranslator translator;
 
-  @override
-  void initState() {
-    super.initState();
-    translator = locator<ExcuseTranslator>();
-    //_initAd();
-  }
+  ExcuseByCategoryWidget({Key? key}) : super(key: key);
 
   // void _initAd() {
   //   InterstitialAd.load(
@@ -109,133 +91,52 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
                 ),
               ),
             ),
-            FutureBuilder(
-                future: translator.translateCategory(AppConstants.categories),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Container(
-                      height: 50,
-                    );
-                  }
-                  List<String>? categories = snapshot.data as List<String>;
-                  return Wrap(
-                    runSpacing: -10,
-                    spacing: 10,
-                    children: [
-                      ChoiceChip(
-                        label: Text(categories[0]),
-                        selected: _excuseCategory == 'family',
-                        selectedColor: Theme.of(context).colorScheme.primary,
-                        labelStyle: TextStyle(
-                            color: _excuseCategory == 'family'
-                                ? Colors.white
-                                : Colors.black),
-                        onSelected: (bool isSelected) {
-                          setState(() {
-                            _excuseCategory = 'family';
-                          });
-                        },
-                      ),
-                      ChoiceChip(
-                        label: Text(categories[1]),
-                        selected: _excuseCategory == 'office',
-                        selectedColor: Theme.of(context).colorScheme.primary,
-                        labelStyle: TextStyle(
-                            color: _excuseCategory == 'office'
-                                ? Colors.white
-                                : Colors.black),
-                        onSelected: (bool isSelected) {
-                          setState(() {
-                            _excuseCategory = 'office';
-                          });
-                        },
-                      ),
-                      ChoiceChip(
-                        label: Text(categories[2]),
-                        selected: _excuseCategory == 'children',
-                        selectedColor: Theme.of(context).colorScheme.primary,
-                        labelStyle: TextStyle(
-                            color: _excuseCategory == 'children'
-                                ? Colors.white
-                                : Colors.black),
-                        onSelected: (bool isSelected) {
-                          setState(() {
-                            _excuseCategory = 'children';
-                          });
-                        },
-                      ),
-                      ChoiceChip(
-                        label: Text(categories[3]),
-                        selected: _excuseCategory == 'college',
-                        selectedColor: Theme.of(context).colorScheme.primary,
-                        labelStyle: TextStyle(
-                            color: _excuseCategory == 'college'
-                                ? Colors.white
-                                : Colors.black),
-                        onSelected: (bool isSelected) {
-                          setState(() {
-                            _excuseCategory = 'college';
-                          });
-                        },
-                      ),
-                      ChoiceChip(
-                        label: Text(categories[4]),
-                        selected: _excuseCategory == 'party',
-                        selectedColor: Theme.of(context).colorScheme.primary,
-                        labelStyle: TextStyle(
-                            color: _excuseCategory == 'party'
-                                ? Colors.white
-                                : Colors.black),
-                        onSelected: (bool isSelected) {
-                          setState(() {
-                            _excuseCategory = 'party';
-                          });
-                        },
-                      ),
-                    ],
+            Wrap(
+              runSpacing: -10,
+              spacing: 10,
+              children: [
+                ...AppConstants.categories.map((category) {
+                  return ChoiceChip(
+                    label: Text(category),
+                    selected: _excuseCategory == category,
+                    selectedColor: Theme.of(context).colorScheme.primary,
+                    labelStyle: TextStyle(
+                        color: _excuseCategory == category
+                            ? Colors.white
+                            : Colors.black),
+                    onSelected: (bool isSelected) {
+                      _excuseCategory = category;
+                    },
                   );
-                }),
+                }).toList(),
+              ],
+            ),
             Stack(
               children: [
                 Center(
-                  child: OutlinedButton(
-                    onPressed: () {
-                      if (_adCounter >= 6) {
-                        //_interstitialAd.show();
-                        //_initAd();
-                      } else {
-                        _adCounter++;
-                      }
-                      context
-                          .read<RandomCategoryExcuseCubit>()
-                          .getRandomExcuseByCategory(_excuseCategory);
-                    },
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(
-                        color: Colors.white,
-                        width: 2,
-                      ),
-                    ),
-                    child: FutureBuilder(
-                      future: translator.translateText('Another Excuse'),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
-                          return Shimmer.fromColors(
-                            highlightColor: Colors.grey[300]!,
-                            baseColor: Colors.grey[400]!,
-                            child: Container(
-                              width: 20,
-                            ),
-                          );
-                        }
-                        return Text(
-                          snapshot.data as String,
-                          style: const TextStyle(color: Colors.white),
-                        );
-                      },
+                    child: OutlinedButton(
+                  onPressed: () {
+                    if (_adCounter >= 6) {
+                      //_interstitialAd.show();
+                      //_initAd();
+                    } else {
+                      _adCounter++;
+                    }
+                    context
+                        .read<RandomCategoryExcuseCubit>()
+                        .getRandomExcuseByCategory(_excuseCategory);
+                  },
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(
+                      color: Colors.white,
+                      width: 2,
                     ),
                   ),
-                ),
+                  child: const Text(
+                    'Another Excuse',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )),
                 Positioned(
                   right: 0,
                   child: IconButton(
@@ -244,7 +145,6 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('Copied to clipboard'),
                       ));
-                      debugPrint(_excuse);
                     },
                     icon: const Icon(Icons.copy),
                     color: Colors.white,

@@ -1,8 +1,10 @@
 import 'package:excuserapp/constants/app_constants.dart';
+import 'package:excuserapp/env/env.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'locator.dart';
 import 'features/excuse/presentation/router.dart';
@@ -15,8 +17,8 @@ void main() {
     final license = await rootBundle.loadString('assets/fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['assets/fonts'], license);
   });
-  setupLocator();
   AppConstants.bannerAd.load();
+  setupLocator();
   runApp(const MyApp());
 }
 
