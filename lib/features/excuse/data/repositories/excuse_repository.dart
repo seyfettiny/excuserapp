@@ -22,8 +22,8 @@ class ExcuseRepository implements IExcuseRepository {
 
   @override
   Future<List<Excuse>> getExcuseListByCategory(
-      String category, int limit) async {
-    return await api.getExcuseListByCategory(category, limit);
+      String category) async {
+    return await api.getExcuseListByCategory(category);
   }
 
   @override

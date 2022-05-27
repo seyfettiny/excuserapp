@@ -7,43 +7,21 @@ import 'package:glass_kit/glass_kit.dart';
 import '../cubit/randomcategoryexcuse/cubit/random_category_excuse_cubit.dart';
 import 'loading_widget.dart';
 
-class ExcuseByCategoryWidget extends StatelessWidget {
-  var _excuseCategory = 'family';
-  var _excuse = '';
-  var _adCounter = 0;
-  //late InterstitialAd _interstitialAd;
+class ExcuseByCategoryWidget extends StatefulWidget {
+  const ExcuseByCategoryWidget({Key? key}) : super(key: key);
 
-  ExcuseByCategoryWidget({Key? key}) : super(key: key);
+  @override
+  State<ExcuseByCategoryWidget> createState() => _ExcuseByCategoryWidgetState();
+}
+
+class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
+  var _excuseCategory = 'family';
+
+  var _excuse = '';
+
+  var _adCounter = 0;
 
   // void _initAd() {
-  //   InterstitialAd.load(
-  //     adUnitId: Platform.isAndroid
-  //         ? 'ca-app-pub-3940256099942544/1033173712'
-  //         : 'ca-app-pub-3940256099942544/4411468910',
-  //     request: const AdRequest(),
-  //     adLoadCallback: InterstitialAdLoadCallback(
-  //       onAdLoaded: (InterstitialAd ad) {
-  //         // Keep a reference to the ad so you can show it later.
-  //         _interstitialAd = ad;
-  //         _interstitialAd.fullScreenContentCallback = FullScreenContentCallback(
-  //           onAdDismissedFullScreenContent: (ad) {
-  //             //_interstitialAd.dispose();
-  //             _adCounter = 0;
-  //           },
-  //           onAdFailedToShowFullScreenContent: (ad, error) {
-  //             //_interstitialAd.dispose();
-  //             _adCounter = 0;
-  //           },
-  //         );
-  //         _adCounter = 0;
-  //       },
-  //       onAdFailedToLoad: (LoadAdError error) {
-  //         debugPrint('InterstitialAd failed to load: $error');
-  //       },
-  //     ),
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -98,14 +76,16 @@ class ExcuseByCategoryWidget extends StatelessWidget {
                 ...AppConstants.categories.map((category) {
                   return ChoiceChip(
                     label: Text(category),
-                    selected: _excuseCategory == category,
+                    selected: _excuseCategory == category.toLowerCase(),
                     selectedColor: Theme.of(context).colorScheme.primary,
                     labelStyle: TextStyle(
-                        color: _excuseCategory == category
+                        color: _excuseCategory == category.toLowerCase()
                             ? Colors.white
                             : Colors.black),
                     onSelected: (bool isSelected) {
-                      _excuseCategory = category;
+                      setState(() {
+                        _excuseCategory = category.toLowerCase();
+                      });
                     },
                   );
                 }).toList(),
