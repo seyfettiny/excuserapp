@@ -1,5 +1,5 @@
-import 'package:excuserapp/constants/app_constants.dart';
-import 'package:excuserapp/locator.dart';
+import '../../../../constants/app_constants.dart';
+import '../../../../locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

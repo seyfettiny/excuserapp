@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:drift_db_viewer/drift_db_viewer.dart';
-import 'package:excuserapp/features/excuse/presentation/screens/settings_screen.dart';
-import 'package:excuserapp/features/excuse/presentation/widgets/privacy_policy_widget.dart';
+import 'screens/settings_screen.dart';
+import 'widgets/privacy_policy_widget.dart';
 import 'package:flutter/material.dart';
 
 class MyRouter {

@@ -1,4 +1,4 @@
-import 'package:excuserapp/features/excuse/presentation/widgets/loading_widget.dart';
+import 'loading_widget.dart';
 import 'package:glass_kit/glass_kit.dart';
 
 import 'package:flutter/material.dart';

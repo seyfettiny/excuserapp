@@ -10,7 +10,6 @@ import '../../../../locator.dart';
 import '../../data/datasources/local/database.dart';
 import '../cubit/randomcategoryexcuse/cubit/random_category_excuse_cubit.dart';
 import '../cubit/randomexcuse/random_excuse_cubit.dart';
-import '../widgets/banner_ad_widget.dart';
 import '../widgets/excuse_by_category_widget.dart';
 import '../widgets/random_excuse_widget.dart';
 

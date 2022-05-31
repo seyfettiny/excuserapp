@@ -1,5 +1,5 @@
-import 'package:excuserapp/constants/app_constants.dart';
-import 'package:excuserapp/env/env.dart';
+import 'constants/app_constants.dart';
+import 'env/env.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

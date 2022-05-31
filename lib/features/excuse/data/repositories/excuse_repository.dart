@@ -1,6 +1,6 @@
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-import 'package:excuserapp/features/excuse/data/datasources/local/database.dart';
+import '../datasources/local/database.dart';
 
 import '../../domain/entities/excuse.dart';
 import '../../domain/repositories/excuse_repository.dart';
