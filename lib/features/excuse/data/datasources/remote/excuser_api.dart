@@ -1,3 +1,4 @@
+import 'package:excuserapp/locator.dart';
 import 'package:excuserapp/util/random_num.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -14,7 +15,11 @@ class ExcuserAPI {
   }
 
   Future<ExcuseModel> getExcuseById(int id) async {
-    final response = await _supabase.from('en').select().eq('id', id).execute();
+    var locale = locator<String>();
+    locale = locale.substring(0, 2);
+    print('locale: $locale');
+    final response =
+        await _supabase.from(locale).select().eq('id', id).execute();
     return ExcuseModel.fromJson(response.data[0]);
   }
 
@@ -33,8 +38,10 @@ class ExcuserAPI {
   }
 
   Future<List<ExcuseModel>> getExcuseListByCategory(String category) async {
+    var locale = locator<String>();
+    locale = locale.substring(0, 2);
     final categoryRange = await _supabase
-        .from('en')
+        .from(locale)
         .select()
         .match({'category': category}).execute();
     final result = (categoryRange.data as List)

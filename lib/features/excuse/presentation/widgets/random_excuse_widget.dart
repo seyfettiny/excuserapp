@@ -6,45 +6,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../constants/app_constants.dart';
 import '../../../../locator.dart';
 import '../cubit/randomexcuse/random_excuse_cubit.dart';
 
 class RandomExcuseWidget extends StatelessWidget {
   var _excuse = '';
-  var _adCounter = 0;
-  //late InterstitialAd _interstitialAd;
 
   RandomExcuseWidget({Key? key}) : super(key: key);
-  //_initAd();
-  // void _initAd() {
-  //   InterstitialAd.load(
-  //     adUnitId: Platform.isAndroid
-  //         ? 'ca-app-pub-3940256099942544/1033173712'
-  //         : 'ca-app-pub-3940256099942544/4411468910',
-  //     request: const AdRequest(),
-  //     adLoadCallback: InterstitialAdLoadCallback(
-  //       onAdLoaded: (InterstitialAd ad) {
-  //         // Keep a reference to the ad so you can show it later.
-  //         _interstitialAd = ad;
-  //         _interstitialAd.fullScreenContentCallback = FullScreenContentCallback(
-  //           onAdDismissedFullScreenContent: (ad) {
-  //             _adCounter = 0;
-  //           },
-  //           onAdFailedToShowFullScreenContent: (ad, error) {
-  //             _adCounter = 0;
-  //           },
-  //         );
-  //         _adCounter = 0;
-  //       },
-  //       onAdFailedToLoad: (LoadAdError error) {
-  //         debugPrint('InterstitialAd failed to load: $error');
-  //       },
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
+    var locale = locator<String>().substring(0, 2);
     return Card(
       color: Colors.transparent,
       shape: RoundedRectangleBorder(
@@ -100,12 +73,6 @@ class RandomExcuseWidget extends StatelessWidget {
                 Center(
                   child: OutlinedButton(
                     onPressed: () {
-                      if (_adCounter >= 6) {
-                        //_interstitialAd.show();
-                        //_initAd();
-                      } else {
-                        _adCounter++;
-                      }
                       context.read<RandomExcuseCubit>().getRandomExcuse();
                     },
                     style: OutlinedButton.styleFrom(
@@ -114,9 +81,11 @@ class RandomExcuseWidget extends StatelessWidget {
                         width: 2,
                       ),
                     ),
-                    child: const Text(
-                      'Another Excuse',
-                      style: TextStyle(color: Colors.white),
+                    child: Text(
+                      locale == 'en'
+                          ? AppConstants.anotherExcuseEN
+                          : AppConstants.anotherExcuseTR,
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
@@ -125,8 +94,10 @@ class RandomExcuseWidget extends StatelessWidget {
                   child: IconButton(
                     onPressed: () async {
                       await Clipboard.setData(ClipboardData(text: _excuse));
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Copied to clipboard'),
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(locale == 'en'
+                            ? AppConstants.copiedEN
+                            : AppConstants.copiedTR),
                       ));
                     },
                     icon: const Icon(Icons.copy),

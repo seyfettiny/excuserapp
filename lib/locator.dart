@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'env/env.dart';
@@ -16,17 +18,14 @@ void setupLocator() {
   locator.registerLazySingleton<IExcuseRepository>(
       () => ExcuseRepository(locator(), locator(), locator()));
   locator.registerLazySingleton(() => GetRandomExcuseUseCase(locator()));
-  locator
-      .registerLazySingleton(() => GetRandomExcuseByCategoryUseCase(locator()));
+  locator.registerLazySingleton(() => GetRandomExcuseByCategoryUseCase(locator()));
   locator.registerLazySingleton(() => ExcuserAPI(locator()));
   locator.registerLazySingleton(() => ExcuseDatabase());
 
-  locator.registerFactory(() => RandomExcuseCubit(
-        locator(),
-      ));
-  locator.registerFactory(() => RandomCategoryExcuseCubit(
-        locator(),
-      ));
+  locator.registerFactory(() => RandomExcuseCubit(locator(),));
+  locator.registerFactory(() => RandomCategoryExcuseCubit(locator(),));
+  locator.registerSingleton<String>(Platform.localeName);
   locator.registerLazySingleton(() => InternetConnectionChecker());
-  locator.registerSingleton<SupabaseClient>(SupabaseClient(Env.apiUrl,Env.apiKey));
+  locator.registerSingleton<SupabaseClient>(
+      SupabaseClient(Env.apiUrl, Env.apiKey));
 }

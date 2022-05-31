@@ -1,4 +1,5 @@
 import 'package:excuserapp/constants/app_constants.dart';
+import 'package:excuserapp/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,12 +17,14 @@ class ExcuseByCategoryWidget extends StatefulWidget {
 
 class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
   var _excuseCategory = 'family';
-
+  var locale;
   var _excuse = '';
+  @override
+  void initState() {
+    super.initState();
+    locale = locator<String>().substring(0, 2);
+  }
 
-  var _adCounter = 0;
-
-  // void _initAd() {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -73,9 +76,12 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
               runSpacing: -10,
               spacing: 10,
               children: [
-                ...AppConstants.categories.map((category) {
+                ...AppConstants.categoriesEN.map((category) {
                   return ChoiceChip(
-                    label: Text(category),
+                    label: Text(locale == 'en'
+                        ? category
+                        : AppConstants.categoriesTR.elementAt(
+                            AppConstants.categoriesEN.indexOf(category))),
                     selected: _excuseCategory == category.toLowerCase(),
                     selectedColor: Theme.of(context).colorScheme.primary,
                     labelStyle: TextStyle(
@@ -96,12 +102,6 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
                 Center(
                     child: OutlinedButton(
                   onPressed: () {
-                    if (_adCounter >= 6) {
-                      //_interstitialAd.show();
-                      //_initAd();
-                    } else {
-                      _adCounter++;
-                    }
                     context
                         .read<RandomCategoryExcuseCubit>()
                         .getRandomExcuseByCategory(_excuseCategory);
@@ -112,9 +112,11 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
                       width: 2,
                     ),
                   ),
-                  child: const Text(
-                    'Another Excuse',
-                    style: TextStyle(color: Colors.white),
+                  child: Text(
+                    locale == 'en'
+                        ? AppConstants.anotherExcuseEN
+                        : AppConstants.anotherExcuseTR,
+                    style: const TextStyle(color: Colors.white),
                   ),
                 )),
                 Positioned(
@@ -122,8 +124,10 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
                   child: IconButton(
                     onPressed: () async {
                       await Clipboard.setData(ClipboardData(text: _excuse));
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Copied to clipboard'),
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(locale == 'en'
+                            ? AppConstants.copiedEN
+                            : AppConstants.copiedTR),
                       ));
                     },
                     icon: const Icon(Icons.copy),
