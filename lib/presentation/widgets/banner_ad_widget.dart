@@ -16,12 +16,10 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
   @override
   void initState() {
     super.initState();
-    //bannerAd.load();
   }
 
   @override
   void dispose() {
-    //_bannerAd.dispose();
     super.dispose();
   }
 
