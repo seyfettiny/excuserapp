@@ -5,8 +5,6 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../../../env/env.dart';
 
 class AppConstants {
-  static const String baseUrl = 'https://excuser.herokuapp.com/v1/excuse';
-
   static const backgrounds = [
     'assets/images/2.png',
     'assets/images/5.jpg',
@@ -20,7 +18,7 @@ class AppConstants {
   static final BannerAd bannerAd = BannerAd(
     //ca-app-pub-3940256099942544/6300978111
     adUnitId: Platform.isAndroid
-        ? Env.bannerKeyAndroid
+        ? 'ca-app-pub-3940256099942544/6300978111'
         : Env.bannerKeyIos,
     size: AdSize.banner,
     request: const AdRequest(),

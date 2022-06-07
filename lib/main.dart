@@ -1,14 +1,12 @@
+import 'presentation/router.dart';
 import 'constants/app_constants.dart';
-import 'env/env.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'locator.dart';
-import 'features/excuse/presentation/router.dart';
-import 'features/excuse/presentation/screens/home_screen.dart';
+import 'presentation/screens/home_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
