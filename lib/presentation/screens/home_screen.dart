@@ -22,6 +22,7 @@ class HomeScreen extends StatelessWidget {
     var _randomIndex = RandomNum.random(0, AppConstants.backgrounds.length);
     return Center(
       child: Scaffold(
+        backgroundColor: Colors.green,
         extendBodyBehindAppBar: true,
         extendBody: true,
         appBar: AppBar(

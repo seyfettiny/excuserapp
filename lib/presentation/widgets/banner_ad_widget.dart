@@ -25,14 +25,10 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
-      color: Colors.transparent,
-      child: SizedBox(
-        width: AppConstants.bannerAd.size.width.toDouble(),
-        height: AppConstants.bannerAd.size.height.toDouble(),
-        child: AdWidget(ad: AppConstants.bannerAd),
-      ),
+      height: AppConstants.bannerAd.size.height.toDouble(),
+      child: AdWidget(ad: AppConstants.bannerAd),
     );
   }
 }

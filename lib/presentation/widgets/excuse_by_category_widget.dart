@@ -84,6 +84,7 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
                             AppConstants.categoriesEN.indexOf(category))),
                     selected: _excuseCategory == category.toLowerCase(),
                     selectedColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor: Colors.white,
                     labelStyle: TextStyle(
                         color: _excuseCategory == category.toLowerCase()
                             ? Colors.white

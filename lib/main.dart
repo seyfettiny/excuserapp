@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: MyRouter.generateRoute,
       theme: ThemeData(
           fontFamily: 'Montserrat',
+          canvasColor: Colors.transparent,
           colorScheme: ColorScheme.fromSwatch().copyWith(
               brightness: Brightness.light,
               primary: const Color(0xFF8403F8),
