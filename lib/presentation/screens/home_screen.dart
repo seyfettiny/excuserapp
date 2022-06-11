@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                 },
                 icon: const Icon(Icons.settings)),
             Visibility(
-              visible: !kDebugMode,
+              visible: kDebugMode,
               child: IconButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed('/dbViewer',
