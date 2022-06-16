@@ -12,7 +12,7 @@ class SettingsScreen extends StatelessWidget {
           ListTile(
             title: const Text('Privacy Policy'),
             onTap: () {
-              Navigator.pushNamed(context, '/privacy_policy');
+              Navigator.pushNamed(context, '/privacyPolicy');
             },
           )
         ],

@@ -20,7 +20,7 @@ class MyRouter {
         return MaterialPageRoute(
           builder: (_) => const SettingsScreen(),
         );
-      case '/privacy_policy':
+      case '/privacyPolicy':
         return MaterialPageRoute(
           builder: (_) => const PrivacyPolicyWidget(),
         );

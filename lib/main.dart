@@ -29,12 +29,17 @@ class MyApp extends StatelessWidget {
       title: 'Excuser',
       onGenerateRoute: MyRouter.generateRoute,
       theme: ThemeData(
-          fontFamily: 'Montserrat',
-          canvasColor: Colors.transparent,
-          colorScheme: ColorScheme.fromSwatch().copyWith(
-              brightness: Brightness.light,
-              primary: const Color(0xFF8403F8),
-              secondary: const Color(0xFFE106FF))),
+        fontFamily: 'Montserrat',
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          brightness: Brightness.light,
+          primary: const Color(0xFF8403F8),
+          secondary: const Color(0xFFE106FF),
+        ),
+        bottomSheetTheme: const BottomSheetThemeData(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+      ),
       home: const HomeScreen(),
     );
   }
