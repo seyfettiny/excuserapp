@@ -20,8 +20,7 @@ class ExcuseRepository implements IExcuseRepository {
   }
 
   @override
-  Future<List<Excuse>> getExcuseListByCategory(
-      String category) async {
+  Future<List<Excuse>> getExcuseListByCategory(String category) async {
     return await api.getExcuseListByCategory(category);
   }
 
@@ -58,8 +57,14 @@ class ExcuseRepository implements IExcuseRepository {
       } catch (e) {
         throw Exception(e);
       }
+    } else {
+      var daoResult =
+          await database.getRandomExcuseByCategory(category).getSingle();
+      return Excuse(
+          excuse: daoResult.excuse!,
+          category: daoResult.category!,
+          id: daoResult.id);
     }
-    return await api.getRandomExcuseByCategory(category);
   }
 
   @override
