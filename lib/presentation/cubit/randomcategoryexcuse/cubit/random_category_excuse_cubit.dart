@@ -16,6 +16,9 @@ class RandomCategoryExcuseCubit extends Cubit<RandomCategoryExcuseState> {
     emit(RandomCategoryExcuseLoading());
     try {
       final result = await getRandomExcuseByCategoryUseCase.execute(category);
+      print(result.excuse);
+      print(result.id);
+      print(result.category);
       emit(RandomCategoryExcuseLoaded(excuse: result));
     } on Exception catch (e) {
       emit(RandomCategoryExcuseError(e.toString()));

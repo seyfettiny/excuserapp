@@ -28,9 +28,8 @@ class ExcuserAPI {
 
   Future<ExcuseModel> getRandomExcuseByCategory(String category) async {
     List categoryList = await getExcuseListByCategory(category);
-    final response =
-        await getExcuseById(RandomNum.random(1, categoryList.length));
-    return response;
+    final randomIndex = RandomNum.random(0, categoryList.length);
+    return categoryList[randomIndex];
   }
 
   Future<List<ExcuseModel>> getExcuseListByCategory(String category) async {

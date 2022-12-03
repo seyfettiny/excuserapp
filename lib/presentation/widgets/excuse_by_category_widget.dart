@@ -92,7 +92,6 @@ class _ExcuseByCategoryWidgetState extends State<ExcuseByCategoryWidget> {
                     onSelected: (bool isSelected) {
                       setState(() {
                         _excuseCategory = category.toLowerCase();
-                        print(_excuseCategory);
                       });
                     },
                   );
