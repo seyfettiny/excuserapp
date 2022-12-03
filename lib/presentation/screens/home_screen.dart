@@ -19,7 +19,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _randomIndex = RandomNum.random(0, AppConstants.backgrounds.length);
+    var _randomIndex =
+        RandomNum.random(0, AppConstants.gradientBgColorPairs.length);
     return Center(
       child: Scaffold(
         backgroundColor: Colors.green,
@@ -52,11 +53,11 @@ class HomeScreen extends StatelessWidget {
         ),
         body: Container(
           decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(AppConstants.backgrounds[_randomIndex]),
-              fit: BoxFit.cover,
-            ),
-          ),
+              gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: AppConstants.gradientBgColorPairs[_randomIndex],
+          )),
           alignment: Alignment.center,
           padding: const EdgeInsets.all(8),
           child: BackdropFilter(
