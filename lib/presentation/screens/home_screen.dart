@@ -60,22 +60,19 @@ class HomeScreen extends StatelessWidget {
           )),
           alignment: Alignment.center,
           padding: const EdgeInsets.all(8),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  BlocProvider(
-                    create: (context) => locator<RandomExcuseCubit>(),
-                    child: RandomExcuseWidget(),
-                  ),
-                  const SizedBox(height: 40),
-                  BlocProvider(
-                    create: (context) => locator<RandomCategoryExcuseCubit>(),
-                    child: const ExcuseByCategoryWidget(),
-                  ),
-                ],
-              ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                BlocProvider(
+                  create: (context) => locator<RandomExcuseCubit>(),
+                  child: RandomExcuseWidget(),
+                ),
+                const SizedBox(height: 40),
+                BlocProvider(
+                  create: (context) => locator<RandomCategoryExcuseCubit>(),
+                  child: const ExcuseByCategoryWidget(),
+                ),
+              ],
             ),
           ),
         ),
