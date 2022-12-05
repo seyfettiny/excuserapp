@@ -1,7 +1,7 @@
 import 'dart:math';
-
-class RandomNum {
+extension RandomNum on int {
   static int random(int min, int max) {
-    return min + (Random().nextInt(max - min));
+    final _random = Random();
+    return min + _random.nextInt(max - min);
   }
 }
