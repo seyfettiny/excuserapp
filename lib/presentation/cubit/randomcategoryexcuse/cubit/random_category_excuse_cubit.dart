@@ -17,7 +17,6 @@ class RandomCategoryExcuseCubit extends Cubit<RandomCategoryExcuseState> {
   Future<void> getRandomExcuseByCategory() async {
     emit(RandomCategoryExcuseLoading());
     try {
-      print(category);
       final result = await getRandomExcuseByCategoryUseCase.execute(category);
       excuse = result.excuse;
       emit(RandomCategoryExcuseLoaded(excuse: result));

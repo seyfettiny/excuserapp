@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glass_kit/glass_kit.dart';
 
-import '../../../../constants/app_constants.dart';
-import '../../../../locator.dart';
-import '../cubit/randomexcuse/random_excuse_cubit.dart';
+import 'package:excuserapp/constants/app_constants.dart';
+import 'package:excuserapp/util/copy_to_clipboard.dart';
+import 'package:excuserapp/util/get_locale.dart';
+
+import 'package:excuserapp/presentation/cubit/randomexcuse/random_excuse_cubit.dart';
 import 'loading_widget.dart';
 
 class RandomExcuseWidget extends StatelessWidget {
-  var _excuse = '';
-
-  RandomExcuseWidget({Key? key}) : super(key: key);
+  const RandomExcuseWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var locale = locator<String>().substring(0, 2);
     return Card(
       color: Colors.transparent,
       shape: RoundedRectangleBorder(
@@ -41,24 +39,7 @@ class RandomExcuseWidget extends StatelessWidget {
                           if (state is RandomExcuseInitial) {
                             context.read<RandomExcuseCubit>().getRandomExcuse();
                           }
-                          if (state is RandomExcuseLoading) {
-                            return const LoadingWidget();
-                          } else if (state is RandomExcuseError) {
-                            return const Center(
-                                child: Icon(
-                              Icons.error_outline,
-                              color: Colors.red,
-                            ));
-                          } else if (state is RandomExcuseLoaded) {
-                            _excuse = state.excuse.excuse;
-                            return Text(
-                              _excuse,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(color: Colors.white),
-                            );
-                          } else {
-                            return const CircularProgressIndicator();
-                          }
+                          return _buildWidgetForState(context, state);
                         },
                       ),
                     ),
@@ -80,7 +61,7 @@ class RandomExcuseWidget extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      locale == 'en'
+                      GetLocale.getLocale() == 'en'
                           ? AppConstants.anotherExcuseEN
                           : AppConstants.anotherExcuseTR,
                       style: const TextStyle(color: Colors.white),
@@ -91,12 +72,8 @@ class RandomExcuseWidget extends StatelessWidget {
                   right: 0,
                   child: IconButton(
                     onPressed: () async {
-                      await Clipboard.setData(ClipboardData(text: _excuse));
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text(locale == 'en'
-                            ? AppConstants.copiedEN
-                            : AppConstants.copiedTR),
-                      ));
+                      await CopyClipboard.copyToClipboard(
+                          context, context.read<RandomExcuseCubit>().excuse);
                     },
                     icon: const Icon(Icons.copy),
                     color: Colors.white,
@@ -108,5 +85,29 @@ class RandomExcuseWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildWidgetForState(BuildContext context, RandomExcuseState state) {
+    switch (state.runtimeType) {
+      case RandomExcuseLoading:
+        return const LoadingWidget();
+      case RandomExcuseError:
+        return const Center(
+          child: Icon(
+            Icons.error_outline,
+            color: Colors.red,
+          ),
+        );
+      case RandomExcuseLoaded:
+        return Text(
+          (state as RandomExcuseLoaded).excuse.excuse,
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+          textAlign: TextAlign.center,
+        );
+      default:
+        return const CircularProgressIndicator();
+    }
   }
 }

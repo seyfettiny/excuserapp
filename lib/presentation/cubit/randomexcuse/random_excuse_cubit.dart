@@ -7,6 +7,7 @@ import '../../../domain/usecases/get_random_excuse.dart';
 part 'random_excuse_state.dart';
 
 class RandomExcuseCubit extends Cubit<RandomExcuseState> {
+  String excuse = '';
   final GetRandomExcuseUseCase getRandomExcuseUseCase;
 
   RandomExcuseCubit(this.getRandomExcuseUseCase) : super(RandomExcuseInitial());
@@ -15,6 +16,7 @@ class RandomExcuseCubit extends Cubit<RandomExcuseState> {
     emit(RandomExcuseLoading());
     try {
       final result = await getRandomExcuseUseCase.execute();
+      excuse = result.excuse;
       emit(RandomExcuseLoaded(excuse: result));
     } on Exception catch (e) {
       emit(RandomExcuseError(e.toString()));

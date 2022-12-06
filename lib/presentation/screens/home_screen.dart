@@ -1,18 +1,16 @@
-import 'dart:ui';
-
-import '../../../../util/random_num.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../constants/app_constants.dart';
-import '../../../../locator.dart';
-import '../../data/datasources/local/database.dart';
-import '../cubit/randomcategoryexcuse/cubit/random_category_excuse_cubit.dart';
-import '../cubit/randomexcuse/random_excuse_cubit.dart';
-import '../widgets/banner_ad_widget.dart';
-import '../widgets/excuse_by_category_widget.dart';
-import '../widgets/random_excuse_widget.dart';
+import 'package:excuserapp/constants/app_constants.dart';
+import 'package:excuserapp/data/datasources/local/database.dart';
+import 'package:excuserapp/locator.dart';
+import 'package:excuserapp/presentation/cubit/randomcategoryexcuse/cubit/random_category_excuse_cubit.dart';
+import 'package:excuserapp/presentation/cubit/randomexcuse/random_excuse_cubit.dart';
+import 'package:excuserapp/presentation/widgets/banner_ad_widget.dart';
+import 'package:excuserapp/presentation/widgets/excuse_by_category_widget.dart';
+import 'package:excuserapp/presentation/widgets/random_excuse_widget.dart';
+import 'package:excuserapp/util/random_num.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -65,7 +63,7 @@ class HomeScreen extends StatelessWidget {
               children: [
                 BlocProvider(
                   create: (context) => locator<RandomExcuseCubit>(),
-                  child: RandomExcuseWidget(),
+                  child: const RandomExcuseWidget(),
                 ),
                 const SizedBox(height: 40),
                 BlocProvider(
