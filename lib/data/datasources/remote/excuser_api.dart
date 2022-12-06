@@ -1,12 +1,12 @@
-import '../../../../../locator.dart';
-import '../../../../../util/random_num.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../models/excuse_model.dart';
+import 'package:excuserapp/data/models/excuse_model.dart';
+import 'package:excuserapp/util/get_locale.dart';
+import 'package:excuserapp/util/random_num.dart';
 
 class ExcuserAPI {
   final SupabaseClient _supabase;
-
+  final locale = GetLocale.getLocale();
   ExcuserAPI(this._supabase);
 
   Future<ExcuseModel> getRandomExcuse() async {
@@ -15,15 +15,9 @@ class ExcuserAPI {
   }
 
   Future<ExcuseModel> getExcuseById(int id) async {
-    var locale = locator<String>();
-    locale = locale.substring(0, 2);
     final response =
         await _supabase.from(locale).select().eq('id', id).execute();
     return ExcuseModel.fromJson(response.data[0]);
-  }
-
-  Future<List<ExcuseModel>> getRandomExcuseList(int limit) async {
-    throw UnimplementedError();
   }
 
   Future<ExcuseModel> getRandomExcuseByCategory(String category) async {
@@ -33,8 +27,6 @@ class ExcuserAPI {
   }
 
   Future<List<ExcuseModel>> getExcuseListByCategory(String category) async {
-    var locale = locator<String>();
-    locale = locale.substring(0, 2);
     final categoryRange = await _supabase
         .from(locale)
         .select()

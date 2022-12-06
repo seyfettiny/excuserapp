@@ -66,9 +66,4 @@ class ExcuseRepository implements IExcuseRepository {
           id: daoResult.id);
     }
   }
-
-  @override
-  Future<List<Excuse>> getRandomExcuseList(int limit) async {
-    return await api.getRandomExcuseList(limit);
-  }
 }
