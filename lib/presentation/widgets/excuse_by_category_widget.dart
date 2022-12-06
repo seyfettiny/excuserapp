@@ -87,22 +87,26 @@ class ExcuseByCategoryWidget extends StatelessWidget {
 
   Widget _buildWidgetForState(
       BuildContext context, RandomCategoryExcuseState state) {
-    if (state is RandomCategoryExcuseLoading) {
-      return const LoadingWidget();
-    } else if (state is RandomCategoryExcuseError) {
-      return const Center(
+    switch (state.runtimeType) {
+      case RandomCategoryExcuseLoading:
+        return const LoadingWidget();
+      case RandomCategoryExcuseError:
+        return const Center(
           child: Icon(
-        Icons.error_outline,
-        color: Colors.red,
-      ));
-    } else if (state is RandomCategoryExcuseLoaded) {
-      return Text(
-        state.excuse.excuse,
-        textAlign: TextAlign.center,
-        style: const TextStyle(color: Colors.white),
-      );
-    } else {
-      return const CircularProgressIndicator();
+            Icons.error_outline,
+            color: Colors.red,
+          ),
+        );
+      case RandomCategoryExcuseLoaded:
+        return Text(
+          (state as RandomCategoryExcuseLoaded).excuse.excuse,
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+          textAlign: TextAlign.center,
+        );
+      default:
+        return const CircularProgressIndicator();
     }
   }
 }
