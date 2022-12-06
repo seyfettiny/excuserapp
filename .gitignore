@@ -47,4 +47,5 @@ app.*.map.json
 
 *.g.dart
 *.env
+*.mocks.dart
 AndroidManifest.xml
