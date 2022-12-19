@@ -1,9 +1,12 @@
 import '../../domain/entities/excuse.dart';
 
 class ExcuseModel extends Excuse {
-  ExcuseModel(
-      {required int id, required String excuse, required String category})
-      : super(id: id, excuse: excuse, category: category);
+  ExcuseModel({
+    required super.id,
+    required super.excuse,
+    required super.category,
+  });
+
   ExcuseModel copyWith({
     required int id,
     required String excuse,
@@ -26,5 +29,4 @@ class ExcuseModel extends Excuse {
         "excuse": excuse,
         "category": category,
       };
-    
 }
