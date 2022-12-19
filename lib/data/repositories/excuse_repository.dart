@@ -1,6 +1,6 @@
+import 'package:excuserapp/data/models/excuse_model.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-import '../../domain/entities/excuse.dart';
 import '../../domain/repositories/excuse_repository.dart';
 import '../datasources/local/database.dart';
 import '../datasources/remote/excuser_api.dart';
@@ -15,17 +15,17 @@ class ExcuseRepository implements IExcuseRepository {
     this.internetConnectionChecker,
   );
   @override
-  Future<Excuse> getExcuseById(int id) async {
+  Future<ExcuseModel> getExcuseById(int id) async {
     return await api.getExcuseById(id);
   }
 
   @override
-  Future<List<Excuse>> getExcuseListByCategory(String category) async {
+  Future<List<ExcuseModel>> getExcuseListByCategory(String category) async {
     return await api.getExcuseListByCategory(category);
   }
 
   @override
-  Future<Excuse> getRandomExcuse() async {
+  Future<ExcuseModel> getRandomExcuse() async {
     if (await internetConnectionChecker.hasConnection) {
       try {
         final result = await api.getRandomExcuse();
@@ -37,16 +37,12 @@ class ExcuseRepository implements IExcuseRepository {
         throw Exception(e);
       }
     } else {
-      var daoResult = await database.getRandomExcuse().getSingle();
-      return Excuse(
-          excuse: daoResult.excuse!,
-          category: daoResult.category!,
-          id: daoResult.id);
+      return await database.getRandomExcuse();
     }
   }
 
   @override
-  Future<Excuse> getRandomExcuseByCategory(String category) async {
+  Future<ExcuseModel> getRandomExcuseByCategory(String category) async {
     if (await internetConnectionChecker.hasConnection) {
       try {
         final result = await api.getRandomExcuseByCategory(category);
@@ -58,12 +54,7 @@ class ExcuseRepository implements IExcuseRepository {
         throw Exception(e);
       }
     } else {
-      var daoResult =
-          await database.getRandomExcuseByCategory(category).getSingle();
-      return Excuse(
-          excuse: daoResult.excuse!,
-          category: daoResult.category!,
-          id: daoResult.id);
+      return await database.getRandomExcuseByCategory(category);
     }
   }
 }
