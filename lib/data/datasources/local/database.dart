@@ -1,9 +1,4 @@
-import 'dart:io';
-
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
-import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart';
 
 import 'package:excuserapp/data/datasources/local/excuse_table.dart';
 import 'package:excuserapp/data/models/excuse_model.dart';
@@ -15,7 +10,7 @@ part 'database.g.dart';
   //include: {'tables.drift'},
 )
 class ExcuseDatabase extends _$ExcuseDatabase {
-  ExcuseDatabase() : super(_openConnection());
+  ExcuseDatabase(QueryExecutor queryExecutor) : super(queryExecutor);
 
   @override
   int get schemaVersion => 1;
@@ -118,10 +113,4 @@ class ExcuseDatabase extends _$ExcuseDatabase {
   }
 }
 
-LazyDatabase _openConnection() {
-  return LazyDatabase(() async {
-    final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(path.join(dbFolder.path, 'db.sqlite'));
-    return NativeDatabase(file);
-  });
-}
+

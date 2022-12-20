@@ -1,4 +1,4 @@
-
+// coverage:ignore-file
 import 'package:drift/drift.dart';
 
 class ExcuseTable extends Table {
