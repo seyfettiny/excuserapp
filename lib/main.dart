@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-import 'locator.dart';
+import 'util/locator.dart';
 import 'presentation/screens/home_screen.dart';
 
 void main() {

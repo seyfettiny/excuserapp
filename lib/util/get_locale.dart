@@ -1,4 +1,4 @@
-import '../locator.dart';
+import 'locator.dart';
 
 class GetLocale {
   static String getLocale() {

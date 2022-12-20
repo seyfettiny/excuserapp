@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:excuserapp/constants/app_constants.dart';
 import 'package:excuserapp/data/datasources/local/database.dart';
-import 'package:excuserapp/locator.dart';
 import 'package:excuserapp/presentation/cubit/randomcategoryexcuse/cubit/random_category_excuse_cubit.dart';
 import 'package:excuserapp/presentation/cubit/randomexcuse/random_excuse_cubit.dart';
 import 'package:excuserapp/presentation/widgets/banner_ad_widget.dart';
 import 'package:excuserapp/presentation/widgets/excuse_by_category_widget.dart';
 import 'package:excuserapp/presentation/widgets/random_excuse_widget.dart';
+import 'package:excuserapp/util/locator.dart';
 import 'package:excuserapp/util/random_num.dart';
 
 class HomeScreen extends StatelessWidget {

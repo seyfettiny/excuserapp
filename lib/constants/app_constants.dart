@@ -1,9 +1,8 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-
-import '../../../../env/env.dart';
 
 class AppConstants {
   static const gradientBgColorPairs = [
@@ -24,7 +23,7 @@ class AppConstants {
     //ca-app-pub-3940256099942544/6300978111
     adUnitId: Platform.isAndroid
         ? 'ca-app-pub-3940256099942544/6300978111'
-        : Env.bannerKeyIos,
+        : dotenv.env['BANNER_KEY_IOS']!,
     size: AdSize.banner,
     request: const AdRequest(),
     listener: const BannerAdListener(),
