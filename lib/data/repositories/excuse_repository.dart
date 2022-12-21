@@ -29,9 +29,7 @@ class ExcuseRepository implements IExcuseRepository {
     if (await internetConnectionChecker.hasConnection) {
       try {
         final result = await api.getRandomExcuse();
-        await database
-            .insertExcuse(result.id, result.excuse, result.category)
-            .onError((error, stackTrace) => 0);
+        await database.insertExcuse(result.id, result.excuse, result.category);
         return result;
       } catch (e) {
         throw Exception(e);
