@@ -26,11 +26,18 @@ void setupLocator() {
   locator.registerLazySingleton(() => GetRandomExcuseByCategoryUseCase(locator()));
   locator.registerLazySingleton(() => ExcuserAPI(locator()));
   locator.registerLazySingleton(() => ExcuseDatabase(_openConnection()));
+  locator.registerLazySingleton(() => InternetConnectionChecker());
+
 
   locator.registerFactory(() => RandomExcuseCubit(locator(),));
   locator.registerFactory(() => RandomCategoryExcuseCubit(locator(),));
+
+  locator.registerSingletonAsync<DotEnv>(() async {
+    final dotenv = DotEnv();
+    await dotenv.load(fileName: '.env');
+    return dotenv;
+  });
   locator.registerSingleton<String>(Platform.localeName);
-  locator.registerLazySingleton(() => InternetConnectionChecker());
   locator.registerSingleton<SupabaseClient>(
       SupabaseClient(dotenv.env['API_URL']!, dotenv.env['API_KEY']!));
 }
