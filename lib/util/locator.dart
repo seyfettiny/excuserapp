@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 import 'dart:io';
 
 import 'package:drift/drift.dart';
@@ -32,11 +34,6 @@ void setupLocator() {
   locator.registerFactory(() => RandomExcuseCubit(locator(),));
   locator.registerFactory(() => RandomCategoryExcuseCubit(locator(),));
 
-  locator.registerSingletonAsync<DotEnv>(() async {
-    final dotenv = DotEnv();
-    await dotenv.load(fileName: '.env');
-    return dotenv;
-  });
   locator.registerSingleton<String>(Platform.localeName);
   locator.registerSingleton<SupabaseClient>(
       SupabaseClient(dotenv.env['API_URL']!, dotenv.env['API_KEY']!));

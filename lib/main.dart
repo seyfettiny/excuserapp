@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'constants/app_constants.dart';
@@ -8,13 +9,14 @@ import 'presentation/router.dart';
 import 'presentation/screens/home_screen.dart';
 import 'util/locator.dart';
 
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('assets/fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['assets/fonts'], license);
   });
+  await dotenv.load(fileName: '.env');
   AppConstants.bannerAd.load();
   setupLocator();
   runApp(const MyApp());
