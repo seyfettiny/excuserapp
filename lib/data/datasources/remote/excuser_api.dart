@@ -1,37 +1,36 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:excuserapp/data/models/excuse_model.dart';
-import 'package:excuserapp/util/get_locale.dart';
-import 'package:excuserapp/util/random_num.dart';
 
 class ExcuserAPI {
   final SupabaseClient _supabase;
-  final locale = GetLocale.getLocale();
-  ExcuserAPI(this._supabase);
+  final String locale;
+  ExcuserAPI(this._supabase, this.locale);
 
-  Future<ExcuseModel> getRandomExcuse() async {
-    final response = await getExcuseById(RandomNum.random(1, 70));
+  Future<ExcuseModel> getRandomExcuse(int randomId) async {
+    final response = await getExcuseById(randomId);
     return response;
   }
 
   Future<ExcuseModel> getExcuseById(int id) async {
-    final response =
-        await _supabase.from(locale).select().eq('id', id).execute();
-    return ExcuseModel.fromJson(response.data[0]);
+    final response = await _supabase
+        .from(locale)
+        .select()
+        .eq('id', id)
+        .withConverter<ExcuseModel>((data) => ExcuseModel.fromJson(data[0]));
+    return response;
   }
 
-  Future<ExcuseModel> getRandomExcuseByCategory(String category) async {
-    List categoryList = await getExcuseListByCategory(category);
-    final randomIndex = RandomNum.random(0, categoryList.length);
-    return categoryList[randomIndex];
+  Future<ExcuseModel> getRandomExcuseByCategory(
+      String category, int randomId) async {
+    final categoryList = await getExcuseListByCategory(category);
+    return categoryList[randomId];
   }
 
   Future<List<ExcuseModel>> getExcuseListByCategory(String category) async {
-    final categoryRange = await _supabase
-        .from(locale)
-        .select()
-        .match({'category': category}).execute();
-    final result = (categoryRange.data as List)
+    final excuseList =
+        await _supabase.from(locale).select().match({'category': category});
+    final result = (excuseList as List)
         .map((category) => ExcuseModel.fromJson(category))
         .toList();
     return result;

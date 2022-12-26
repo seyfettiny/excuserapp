@@ -22,6 +22,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.11.2"
+  app_links:
+    dependency: transitive
+    description:
+      name: app_links
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.4.1"
+  app_links_platform_interface:
+    dependency: transitive
+    description:
+      name: app_links_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   archive:
     dependency: transitive
     description:
@@ -49,7 +63,7 @@ packages:
       name: bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.1.0"
+    version: "7.2.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -271,7 +285,7 @@ packages:
       name: flutter_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.1.1"
+    version: "7.3.3"
   flutter_dotenv:
     dependency: "direct main"
     description:
@@ -309,7 +323,7 @@ packages:
       name: functions_client
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1-dev.5"
+    version: "1.0.0"
   get_it:
     dependency: "direct main"
     description:
@@ -344,7 +358,7 @@ packages:
       name: gotrue
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.3"
+    version: "1.3.0"
   graphs:
     dependency: transitive
     description:
@@ -596,7 +610,7 @@ packages:
       name: postgrest
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.11"
+    version: "1.2.1"
   process:
     dependency: transitive
     description:
@@ -631,7 +645,7 @@ packages:
       name: realtime_client
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.15+1"
+    version: "1.0.1"
   recase:
     dependency: transitive
     description:
@@ -639,6 +653,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.1.0"
+  retry:
+    dependency: transitive
+    description:
+      name: retry
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.0"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.27.7"
   shelf:
     dependency: transitive
     description:
@@ -713,7 +741,7 @@ packages:
       name: storage_client
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.6+2"
+    version: "1.2.0"
   stream_channel:
     dependency: transitive
     description:
@@ -741,14 +769,14 @@ packages:
       name: supabase
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.6"
+    version: "1.2.0"
   supabase_flutter:
     dependency: "direct main"
     description:
       name: supabase_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.3"
+    version: "1.2.2"
   term_glyph:
     dependency: transitive
     description:
@@ -777,27 +805,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.1"
-  uni_links:
-    dependency: transitive
-    description:
-      name: uni_links
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.1"
-  uni_links_platform_interface:
-    dependency: transitive
-    description:
-      name: uni_links_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-  uni_links_web:
-    dependency: transitive
-    description:
-      name: uni_links_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.0"
   universal_io:
     dependency: transitive
     description:
@@ -945,6 +952,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.1"
+  yet_another_json_isolate:
+    dependency: transitive
+    description:
+      name: yet_another_json_isolate
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
 sdks:
   dart: ">=2.18.0 <3.0.0"
   flutter: ">=3.0.0"
