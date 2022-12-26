@@ -1,4 +1,6 @@
 import 'package:excuserapp/data/models/excuse_model.dart';
+import 'package:excuserapp/util/random_num.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../domain/repositories/excuse_repository.dart';
@@ -28,7 +30,8 @@ class ExcuseRepository implements IExcuseRepository {
   Future<ExcuseModel> getRandomExcuse() async {
     if (await internetConnectionChecker.hasConnection) {
       try {
-        final result = await api.getRandomExcuse();
+        //TODO: Change this to get the total number of excuses
+        final result = await api.getRandomExcuse(RandomNum.random(1, 70));
         await database.insertExcuse(result.id, result.excuse, result.category);
         return result;
       } catch (e) {
@@ -43,7 +46,10 @@ class ExcuseRepository implements IExcuseRepository {
   Future<ExcuseModel> getRandomExcuseByCategory(String category) async {
     if (await internetConnectionChecker.hasConnection) {
       try {
-        final result = await api.getRandomExcuseByCategory(category);
+        final List categoryList = await getExcuseListByCategory(category);
+        final randomIndex = RandomNum.random(0, categoryList.length);
+        final result =
+            await api.getRandomExcuseByCategory(category, randomIndex);
         await database
             .insertExcuse(result.id, result.excuse, result.category)
             .onError((error, stackTrace) => 0);
