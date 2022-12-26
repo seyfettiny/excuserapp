@@ -19,24 +19,22 @@ import '../domain/usecases/get_random_excuse.dart';
 import '../domain/usecases/get_random_excuse_by_category.dart';
 import '../presentation/cubit/randomcategoryexcuse/cubit/random_category_excuse_cubit.dart';
 import '../presentation/cubit/randomexcuse/random_excuse_cubit.dart';
+import 'get_locale.dart';
 
 final locator = GetIt.instance;
 void setupLocator() {
-  locator.registerLazySingleton<IExcuseRepository>(
-      () => ExcuseRepository(locator(), locator(), locator()));
+  locator.registerLazySingleton<IExcuseRepository>(() => ExcuseRepository(locator(), locator(), locator()));
   locator.registerLazySingleton(() => GetRandomExcuseUseCase(locator()));
   locator.registerLazySingleton(() => GetRandomExcuseByCategoryUseCase(locator()));
-  locator.registerLazySingleton(() => ExcuserAPI(locator()));
+  locator.registerLazySingleton(() => ExcuserAPI(locator(), GetLocale.getLocale()));
   locator.registerLazySingleton(() => ExcuseDatabase(_openConnection()));
   locator.registerLazySingleton(() => InternetConnectionChecker());
-
 
   locator.registerFactory(() => RandomExcuseCubit(locator(),));
   locator.registerFactory(() => RandomCategoryExcuseCubit(locator(),));
 
   locator.registerSingleton<String>(Platform.localeName);
-  locator.registerSingleton<SupabaseClient>(
-      SupabaseClient(dotenv.env['API_URL']!, dotenv.env['API_KEY']!));
+  locator.registerSingleton<SupabaseClient>(SupabaseClient(dotenv.env['API_URL']!, dotenv.env['API_KEY']!));
 }
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {

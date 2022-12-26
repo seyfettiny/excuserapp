@@ -61,14 +61,18 @@ class HomeScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                BlocProvider(
-                  create: (context) => locator<RandomExcuseCubit>(),
-                  child: const RandomExcuseWidget(),
+                RepaintBoundary(
+                  child: BlocProvider(
+                    create: (context) => locator<RandomExcuseCubit>(),
+                    child: const RandomExcuseWidget(),
+                  ),
                 ),
                 const SizedBox(height: 40),
-                BlocProvider(
-                  create: (context) => locator<RandomCategoryExcuseCubit>(),
-                  child: const ExcuseByCategoryWidget(),
+                RepaintBoundary(
+                  child: BlocProvider(
+                    create: (context) => locator<RandomCategoryExcuseCubit>(),
+                    child: const ExcuseByCategoryWidget(),
+                  ),
                 ),
               ],
             ),
