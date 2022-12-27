@@ -1,6 +1,5 @@
 import 'package:excuserapp/data/models/excuse_model.dart';
 import 'package:excuserapp/util/random_num.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../domain/repositories/excuse_repository.dart';
