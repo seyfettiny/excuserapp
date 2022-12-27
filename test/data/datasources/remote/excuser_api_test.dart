@@ -333,7 +333,7 @@ void main() {
     await mockServer.close();
   });
 
-  group('basic test', () {
+  group('ExcuserAPI test', () {
     test('should return excuse', () async {
       final data = await excuserAPI.getExcuseById(excuseIdRequest);
 
