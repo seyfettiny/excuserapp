@@ -1,3 +1,4 @@
+import 'package:bloc_test/bloc_test.dart';
 import 'package:excuserapp/data/models/excuse_model.dart';
 import 'package:excuserapp/domain/usecases/get_random_excuse_by_category.dart';
 import 'package:excuserapp/presentation/cubit/randomcategoryexcuse/cubit/random_category_excuse_cubit.dart';
@@ -32,22 +33,18 @@ void main() {
       // assert
       expect(cubit.state, equals(RandomCategoryExcuseLoading()));
     });
-
-    test('emits RandomCategoryExcuseLoaded', () {
-      // arrange
-      when(mockUseCase.execute(any)).thenAnswer((_) async => tExcuse);
-      // assert
-      expectLater(cubit, emitsInOrder([
-        RandomCategoryExcuseInitial(),
+    blocTest(
+      'emits RandomCategoryExcuseLoaded',
+      build: () {
+        when(mockUseCase.execute(any)).thenAnswer((_) async => tExcuse);
+        return cubit;
+      },
+      act: (cubit) => cubit.getRandomExcuseByCategory(),
+      expect: () => [
         RandomCategoryExcuseLoading(),
         RandomCategoryExcuseLoaded(excuse: tExcuse),
-      ]));
-      // act
-      cubit.getRandomExcuseByCategory();
-
-
-    });
-
+      ],
+    );
     test('emits RandomCategoryExcuseError', () {
       // arrange
       when(mockUseCase.execute(any)).thenThrow(Exception('error'));
