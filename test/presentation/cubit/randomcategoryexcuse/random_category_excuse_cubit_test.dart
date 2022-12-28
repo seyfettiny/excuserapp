@@ -23,39 +23,30 @@ void main() {
   group('getRandomExcuseByCategory', () {
     final tExcuse =
         ExcuseModel(id: 0, excuse: 'Test Excuse', category: 'family');
-    test('emits RandomCategoryExcuseLoading', () {
-      // arrange
-      when(mockUseCase.execute(any)).thenAnswer((_) async => tExcuse);
-
-      // act
-      cubit.getRandomExcuseByCategory();
-
-      // assert
-      expect(cubit.state, equals(RandomCategoryExcuseLoading()));
-    });
-    blocTest(
-      'emits RandomCategoryExcuseLoaded',
-      build: () {
-        when(mockUseCase.execute(any)).thenAnswer((_) async => tExcuse);
-        return cubit;
-      },
+        
+    blocTest<RandomCategoryExcuseCubit, RandomCategoryExcuseState>(
+      'emits RandomExcuseLoading, RandomCategoryExcuseLoaded when getRandomExcuseByCategory is called',
+      setUp: () => when(mockUseCase.execute(any)).thenAnswer((_) async => tExcuse),
+      build: () => cubit,
       act: (cubit) => cubit.getRandomExcuseByCategory(),
       expect: () => [
         RandomCategoryExcuseLoading(),
         RandomCategoryExcuseLoaded(excuse: tExcuse),
       ],
+      verify: (_) => verify(mockUseCase.execute(tExcuse.category)).called(1),
     );
-    test('emits RandomCategoryExcuseError', () {
-      // arrange
-      when(mockUseCase.execute(any)).thenThrow(Exception('error'));
 
-      // act
-      cubit.getRandomExcuseByCategory();
-
-      // assert
-      expect(cubit.state,
-          equals(const RandomCategoryExcuseError('Exception: error')));
-    });
+    blocTest(
+      'emits RandomCategoryExcuseError when getRandomExcuseByCategory is called and throws an error',
+      setUp: () => when(mockUseCase.execute(any)).thenThrow(Exception('error')),
+      build: () => cubit,
+      act: (cubit) => cubit.getRandomExcuseByCategory(),
+      expect: () => [
+        RandomCategoryExcuseLoading(),
+        const RandomCategoryExcuseError('Exception: error'),
+      ],
+      verify: (_) => verify(mockUseCase.execute(tExcuse.category)).called(1),
+    );
   });
 
   group('changeCategory', () {
