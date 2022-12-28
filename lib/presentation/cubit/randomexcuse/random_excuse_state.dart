@@ -7,15 +7,6 @@ abstract class RandomExcuseState extends Equatable {
   List<Object> get props => [];
 }
 
-enum ExcuseStatus { initial, loading, success, failure }
-
-extension ExcuseStatusX on ExcuseStatus {
-  bool get isInitial => this == ExcuseStatus.initial;
-  bool get isLoading => this == ExcuseStatus.loading;
-  bool get isSuccess => this == ExcuseStatus.success;
-  bool get isFailure => this == ExcuseStatus.failure;
-}
-
 class RandomExcuseInitial extends RandomExcuseState {}
 
 class RandomExcuseLoading extends RandomExcuseState {}
