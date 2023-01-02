@@ -17,6 +17,7 @@ class ExcuseCategoryChoices extends StatefulWidget {
 class _ExcuseCategoryChoicesState extends State<ExcuseCategoryChoices> {
   @override
   Widget build(BuildContext context) {
+    final _category = context.read<RandomCategoryExcuseCubit>().category;
     return Wrap(
       runSpacing: -10,
       spacing: 10,
@@ -27,13 +28,11 @@ class _ExcuseCategoryChoicesState extends State<ExcuseCategoryChoices> {
                 ? category
                 : AppConstants.categoriesTR
                     .elementAt(AppConstants.categoriesEN.indexOf(category))),
-            selected: context.read<RandomCategoryExcuseCubit>().category ==
-                category.toLowerCase(),
+            selected: _category == category.toLowerCase(),
             selectedColor: Theme.of(context).colorScheme.primary,
             backgroundColor: Colors.white,
             labelStyle: TextStyle(
-                color: context.read<RandomCategoryExcuseCubit>().category ==
-                        category.toLowerCase()
+                color: _category == category.toLowerCase()
                     ? Colors.white
                     : Colors.black),
             onSelected: (bool isSelected) {
