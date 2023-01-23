@@ -44,6 +44,10 @@ class AppConstants {
   ];
   static const String copiedEN = 'Copied to clipboard';
   static const String copiedTR = 'Kopyalandı';
+
+  static const String copyErrorEN = 'Could not copy to clipboard';
+  static const String copyErrorTR = 'Panoya kopyalanamadı';
+
   static const String anotherExcuseEN = 'Another excuse';
   static const String anotherExcuseTR = 'Başka bir bahane';
 }
