@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glass_kit/glass_kit.dart';
 
 import 'package:excuserapp/constants/app_constants.dart';
 import 'package:excuserapp/presentation/cubit/randomcategoryexcuse/cubit/random_category_excuse_cubit.dart';
-import 'package:excuserapp/util/copy_to_clipboard.dart';
 import 'package:excuserapp/util/get_locale.dart';
 
 import 'excuse_category_choices.dart';
@@ -69,9 +69,8 @@ class ExcuseByCategoryWidget extends StatelessWidget {
                 Positioned(
                   right: 0,
                   child: IconButton(
-                    onPressed: () async {
-                      await CopyClipboard.copyToClipboard(context,
-                          context.read<RandomCategoryExcuseCubit>().excuse);
+                    onPressed: () {
+                      _copyToClipboard(context);
                     },
                     icon: const Icon(Icons.copy),
                     color: Colors.white,
@@ -83,6 +82,33 @@ class ExcuseByCategoryWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _copyToClipboard(BuildContext context) {
+    Clipboard.setData(
+      ClipboardData(text: context.read<RandomCategoryExcuseCubit>().excuse),
+    ).then((value) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            GetLocale.getLocale() == 'en'
+                ? AppConstants.copiedEN
+                : AppConstants.copiedTR,
+          ),
+        ),
+      );
+    }).onError((error, stackTrace) {
+      debugPrint('error: $error, stackTrace: $stackTrace');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            GetLocale.getLocale() == 'en'
+                ? AppConstants.copyErrorEN
+                : AppConstants.copyErrorTR,
+          ),
+        ),
+      );
+    });
   }
 
   Widget _buildWidgetForState(
