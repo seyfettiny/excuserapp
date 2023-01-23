@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-import '../../../../constants/app_constants.dart';
 
 class BannerAdWidget extends StatefulWidget {
+  final BannerAd bannerAd;
   const BannerAdWidget({
     Key? key,
+    required this.bannerAd,
   }) : super(key: key);
 
   @override
@@ -13,22 +14,13 @@ class BannerAdWidget extends StatefulWidget {
 }
 
 class _BannerAdWidgetState extends State<BannerAdWidget> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: AppConstants.bannerAd.size.height.toDouble(),
-      child: AdWidget(ad: AppConstants.bannerAd),
+      height: AdSize.banner.height.toDouble(),
+      child: AdWidget(ad: widget.bannerAd),
     );
   }
 }
