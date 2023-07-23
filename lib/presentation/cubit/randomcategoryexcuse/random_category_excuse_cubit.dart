@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../domain/entities/excuse.dart';
-import '../../../../domain/usecases/get_random_excuse_by_category.dart';
+import '../../../domain/entities/excuse.dart';
+import '../../../domain/usecases/get_random_excuse_by_category.dart';
 
 part 'random_category_excuse_state.dart';
 
