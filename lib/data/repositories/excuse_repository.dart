@@ -1,5 +1,6 @@
-import 'package:excuserapp/data/models/excuse_model.dart';
-import 'package:excuserapp/util/random_num.dart';
+import '../models/excuse_model.dart';
+import '../../util/random_num.dart';
+import 'package:flutter/foundation.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../domain/repositories/excuse_repository.dart';
@@ -31,9 +32,13 @@ class ExcuseRepository implements IExcuseRepository {
       try {
         //TODO: Change this to get the total number of excuses
         final result = await api.getRandomExcuse(RandomNum.random(1, 70));
-        await database.insertExcuse(result.id, result.excuse, result.category);
+        final locale = await database.getLocale();
+        await database.insertExcuse(
+            result.id, result.excuse, result.category, locale);
         return result;
-      } catch (e) {
+      } catch (e, s) {
+        debugPrint(e.toString());
+        debugPrint(s.toString());
         throw Exception(e);
       }
     } else {
@@ -46,13 +51,13 @@ class ExcuseRepository implements IExcuseRepository {
     if (await internetConnectionChecker.hasConnection) {
       try {
         final List categoryList = await getExcuseListByCategory(category);
-        final randomIndex = RandomNum.random(0, categoryList.length);
-        final result =
-            await api.getRandomExcuseByCategory(category, randomIndex);
+        final randomIndex = RandomNum.random(1, categoryList.length);
+        final selectedExcuse = categoryList[randomIndex];
+        final locale = await database.getLocale();
         await database
-            .insertExcuse(result.id, result.excuse, result.category)
+            .insertExcuse(selectedExcuse.id, selectedExcuse.excuse, selectedExcuse.category, locale)
             .onError((error, stackTrace) => 0);
-        return result;
+        return selectedExcuse;
       } catch (e) {
         throw Exception(e);
       }

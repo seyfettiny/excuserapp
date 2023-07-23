@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:excuserapp/data/models/excuse_model.dart';
 import 'package:excuserapp/domain/usecases/get_random_excuse_by_category.dart';
-import 'package:excuserapp/presentation/cubit/randomcategoryexcuse/cubit/random_category_excuse_cubit.dart';
+import 'package:excuserapp/presentation/cubit/randomcategoryexcuse/random_category_excuse_cubit.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

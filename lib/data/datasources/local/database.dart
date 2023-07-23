@@ -1,13 +1,13 @@
 import 'package:drift/drift.dart';
 
-import 'package:excuserapp/data/datasources/local/excuse_table.dart';
-import 'package:excuserapp/data/models/excuse_model.dart';
+import 'excuse_table.dart';
+import 'settings_table.dart';
+import '../../models/excuse_model.dart';
 
 part 'database.g.dart';
 
 @DriftDatabase(
-  tables: [ExcuseTable],
-  //include: {'tables.drift'},
+  tables: [ExcuseTable, SettingsTable],
 )
 class ExcuseDatabase extends _$ExcuseDatabase {
   ExcuseDatabase(QueryExecutor queryExecutor) : super(queryExecutor);
@@ -29,15 +29,20 @@ class ExcuseDatabase extends _$ExcuseDatabase {
         .toList();
   }
 
-  Future<ExcuseModel> getExcuseById(int id) async {
-    final query = select(excuseTable)..where((t) => t.id.equals(id));
+  Future<ExcuseModel?> getExcuseById(int id, String locale) async {
+    final query = select(excuseTable)
+      ..where((t) => t.id.equals(id))
+      ..where((t) => t.language.equals(locale));
 
-    final result = await query.getSingle();
-
+    final result = await query.getSingleOrNull();
+    if (result == null) {
+      return null;
+    }
     return ExcuseModel(
       id: result.id,
       excuse: result.excuse,
       category: result.category,
+      locale: result.language,
     );
   }
 
@@ -92,14 +97,21 @@ class ExcuseDatabase extends _$ExcuseDatabase {
   }
 
   // Returns the generated id
-  Future<int> insertExcuse(int id, String excuse, String category) async {
-    return await into(excuseTable).insert(
-      ExcuseTableCompanion(
-        id: Value(id),
-        excuse: Value(excuse),
-        category: Value(category),
-      ),
-    );
+  Future<int> insertExcuse(
+      int id, String excuse, String category, String language) async {
+    bool validToInsert = await getExcuseById(id, language) == null;
+    if (validToInsert) {
+      return await into(excuseTable).insert(
+        ExcuseTableCompanion(
+          id: Value(id),
+          excuse: Value(excuse),
+          category: Value(category),
+          language: Value(language),
+        ),
+      );
+    } else {
+      return -1;
+    }
   }
 
   // Returns affected row
@@ -111,6 +123,26 @@ class ExcuseDatabase extends _$ExcuseDatabase {
   Future<int> deleteAllExcuses() async {
     return await delete(excuseTable).go();
   }
+
+  Future<int> setLocale(String language) async {
+    return await into(settingsTable).insertOnConflictUpdate(
+      SettingsTableCompanion(
+        id: const Value(0),
+        language: Value(language),
+      ),
+    );
+  }
+
+  Future<String> getLocale() async {
+    final query = select(settingsTable);
+
+    final result = await query.getSingle().then((value) {
+      return value;
+    }).onError((error, stackTrace) async {
+      setLocale("en");
+      return const SettingsTableData(id: 0, language: "en");
+    });
+
+    return result.language;
+  }
 }
-
-

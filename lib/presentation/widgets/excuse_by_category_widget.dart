@@ -1,11 +1,10 @@
+import '../../util/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glass_kit/glass_kit.dart';
 
-import 'package:excuserapp/constants/app_constants.dart';
-import 'package:excuserapp/presentation/cubit/randomcategoryexcuse/cubit/random_category_excuse_cubit.dart';
-import 'package:excuserapp/util/get_locale.dart';
+import '../cubit/randomcategoryexcuse/random_category_excuse_cubit.dart';
 
 import 'excuse_category_choices.dart';
 import 'loading_widget.dart';
@@ -35,8 +34,8 @@ class ExcuseByCategoryWidget extends StatelessWidget {
                   builder: (context, state) {
                     if (state is RandomCategoryExcuseInitial) {
                       context
-                          .read<RandomCategoryExcuseCubit>()
-                          .getRandomExcuseByCategory();
+                          .watch<RandomCategoryExcuseCubit>()
+                          .getRandomExcuseByCategory().then((value) => null);
                     }
                     return _buildWidgetForState(context, state);
                   },
@@ -60,9 +59,7 @@ class ExcuseByCategoryWidget extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    GetLocale.getLocale() == 'en'
-                        ? AppConstants.anotherExcuseEN
-                        : AppConstants.anotherExcuseTR,
+                    context.l10n.anotherExcuse,
                     style: const TextStyle(color: Colors.white),
                   ),
                 )),
@@ -90,22 +87,14 @@ class ExcuseByCategoryWidget extends StatelessWidget {
     ).then((value) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            GetLocale.getLocale() == 'en'
-                ? AppConstants.copiedEN
-                : AppConstants.copiedTR,
-          ),
+          content: Text(context.l10n.copied),
         ),
       );
     }).onError((error, stackTrace) {
       debugPrint('error: $error, stackTrace: $stackTrace');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            GetLocale.getLocale() == 'en'
-                ? AppConstants.copyErrorEN
-                : AppConstants.copyErrorTR,
-          ),
+          content: Text(context.l10n.copyError),
         ),
       );
     });
@@ -117,6 +106,7 @@ class ExcuseByCategoryWidget extends StatelessWidget {
       case RandomCategoryExcuseLoading:
         return const LoadingWidget();
       case RandomCategoryExcuseError:
+      debugPrint('error: ${(state as RandomCategoryExcuseError).error}');
         return const Center(
           child: Icon(
             Icons.error_outline,

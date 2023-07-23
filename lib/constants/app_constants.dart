@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AppConstants {
-  static const gradientBgColorPairs = [
+  static const gradientBgColors = [
     [Color(0xFF12c2e9), Color(0xFFc471ed), Color(0xFFf64f59)],
     [Color(0xFF373B44), Color(0xFF4286f4)],
     [Color(0xFFFF0099), Color(0xFF493240)],
@@ -19,35 +20,36 @@ class AppConstants {
     [Color(0xFF333333), Color(0xFFdd1818)],
     [Color(0xFFb20a2c), Color(0xFFfffbd5)],
   ];
+
+  static const Map<String, Locale> supportedLocales = {
+    'English': Locale('en', 'US'),
+    'Türkçe': Locale('tr', 'TR'),
+    'Español': Locale("es", "ES"),
+    'Français': Locale("fr", "FR"),
+    'Deutsche': Locale("de", "DE"),
+    'Italiano': Locale("it", "IT"),
+    'Português': Locale("pt", "PT"),
+    'Русский': Locale("ru", "RU"),
+  };
+
+  static const categoryKeys = [
+    "family",
+    "office",
+    "children",
+    "college",
+    "party"
+  ];
+
   static final BannerAd bannerAd = BannerAd(
-    //ca-app-pub-3940256099942544/6300978111
     adUnitId: Platform.isAndroid
-        ? 'ca-app-pub-3940256099942544/6300978111'
-        : dotenv.env['BANNER_KEY_IOS']!,
+        ? kDebugMode
+            ? 'ca-app-pub-3940256099942544/6300978111'
+            : dotenv.env['BANNER_KEY_ANDROID']!
+        : kDebugMode
+            ? 'ca-app-pub-3940256099942544/2934735716'
+            : dotenv.env['BANNER_KEY_IOS']!,
     size: AdSize.banner,
     request: const AdRequest(),
     listener: const BannerAdListener(),
   );
-  static const categoriesEN = [
-    'Family',
-    'Office',
-    'Children',
-    'College',
-    'Party',
-  ];
-  static const categoriesTR = [
-    'Aile',
-    'Ofis',
-    'Çocuklar',
-    'Okul',
-    'Parti',
-  ];
-  static const String copiedEN = 'Copied to clipboard';
-  static const String copiedTR = 'Kopyalandı';
-
-  static const String copyErrorEN = 'Could not copy to clipboard';
-  static const String copyErrorTR = 'Panoya kopyalanamadı';
-
-  static const String anotherExcuseEN = 'Another excuse';
-  static const String anotherExcuseTR = 'Başka bir bahane';
 }

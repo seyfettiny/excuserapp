@@ -1,12 +1,10 @@
+import '../../util/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glass_kit/glass_kit.dart';
 
-import 'package:excuserapp/constants/app_constants.dart';
-import 'package:excuserapp/util/get_locale.dart';
-
-import 'package:excuserapp/presentation/cubit/randomexcuse/random_excuse_cubit.dart';
+import '../cubit/randomexcuse/random_excuse_cubit.dart';
 import 'loading_widget.dart';
 
 class RandomExcuseWidget extends StatelessWidget {
@@ -37,7 +35,7 @@ class RandomExcuseWidget extends StatelessWidget {
                       child: BlocBuilder<RandomExcuseCubit, RandomExcuseState>(
                         builder: (context, state) {
                           if (state is RandomExcuseInitial) {
-                            context.read<RandomExcuseCubit>().getRandomExcuse();
+                            context.watch<RandomExcuseCubit>().getRandomExcuse();
                           }
                           return _buildWidgetForState(context, state);
                         },
@@ -61,9 +59,7 @@ class RandomExcuseWidget extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      GetLocale.getLocale() == 'en'
-                          ? AppConstants.anotherExcuseEN
-                          : AppConstants.anotherExcuseTR,
+                      context.l10n.anotherExcuse,
                       style: const TextStyle(color: Colors.white),
                     ),
                   ),
@@ -92,22 +88,14 @@ class RandomExcuseWidget extends StatelessWidget {
     ).then((value) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            GetLocale.getLocale() == 'en'
-                ? AppConstants.copiedEN
-                : AppConstants.copiedTR,
-          ),
+          content: Text(context.l10n.copied),
         ),
       );
     }).onError((error, stackTrace) {
       debugPrint('error: $error, stackTrace: $stackTrace');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            GetLocale.getLocale() == 'en'
-                ? AppConstants.copyErrorEN
-                : AppConstants.copyErrorTR,
-          ),
+          content: Text(context.l10n.copyError),
         ),
       );
     });
@@ -118,6 +106,7 @@ class RandomExcuseWidget extends StatelessWidget {
       case RandomExcuseLoading:
         return const LoadingWidget();
       case RandomExcuseError:
+      debugPrint('error: ${(state as RandomExcuseError).error}');
         return const Center(
           child: Icon(
             Icons.error_outline,

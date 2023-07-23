@@ -1,11 +1,12 @@
+import '../local/database.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'package:excuserapp/data/models/excuse_model.dart';
+import '../../models/excuse_model.dart';
 
 class ExcuserAPI {
   final SupabaseClient _supabase;
-  final String locale;
-  ExcuserAPI(this._supabase, this.locale);
+  final ExcuseDatabase database;
+  ExcuserAPI(this._supabase, this.database);
 
   Future<ExcuseModel> getRandomExcuse(int randomId) async {
     final response = await getExcuseById(randomId);
@@ -13,6 +14,7 @@ class ExcuserAPI {
   }
 
   Future<ExcuseModel> getExcuseById(int id) async {
+    final locale = await database.getLocale();
     final response = await _supabase
         .from(locale)
         .select()
@@ -28,6 +30,7 @@ class ExcuserAPI {
   }
 
   Future<List<ExcuseModel>> getExcuseListByCategory(String category) async {
+    final locale = await database.getLocale();
     final excuseList =
         await _supabase.from(locale).select().match({'category': category});
     final result = (excuseList as List)
