@@ -5,6 +5,7 @@ class ExcuseModel extends Excuse {
     required super.id,
     required super.excuse,
     required super.category,
+    super.locale,
   });
 
   ExcuseModel copyWith({

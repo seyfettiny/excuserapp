@@ -1,6 +1,5 @@
-import '../repositories/excuse_repository.dart';
-
 import '../entities/excuse.dart';
+import '../repositories/excuse_repository.dart';
 
 class GetRandomExcuseByCategoryUseCase {
   final IExcuseRepository repository;
