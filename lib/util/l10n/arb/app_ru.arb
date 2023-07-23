@@ -1,0 +1,32 @@
+{
+  "categories": "Семья, Офис, Дети, Школа, Вечеринка",
+  "@@categories": {
+    "description": [
+      "Семья",
+      "Офис",
+      "Дети",
+      "Школа",
+      "Вечеринка"
+    ]
+  },
+  "copied": "Скопировано в буфер обмена!",
+  "@@copied": {
+    "description": "Скопировано в буфер обмена!"
+  },
+  "copyError": "Ошибка копирования!",
+  "@@copyError": {
+    "description": "Ошибка копирования!"
+  },
+  "anotherExcuse": "Другое оправдание",
+  "@@anotherExcuse": {
+    "description": "Другое оправдание"
+  },
+  "changeLanguage": "Изменить язык",
+  "@@changeLanguage": {
+    "description": "Изменить язык"
+  },
+  "privacyPolicy": "Политика конфиденциальности",
+  "@@privacyPolicy": {
+    "description": "Политика конфиденциальности"
+  }
+}

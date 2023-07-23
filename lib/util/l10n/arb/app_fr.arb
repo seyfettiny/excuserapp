@@ -1,0 +1,32 @@
+{
+  "categories": "Famille, Bureau, Enfants, École, Fête",
+  "@@categories": {
+    "description": [
+      "Famille",
+      "Bureau",
+      "Enfants",
+      "École",
+      "Fête"
+    ]
+  },
+  "copied": "Copié dans le presse-papiers !",
+  "@@copied": {
+    "description": "Copié dans le presse-papiers !"
+  },
+  "copyError": "Échec de la copie !",
+  "@@copyError": {
+    "description": "Échec de la copie !"
+  },
+  "anotherExcuse": "Une autre excuse",
+  "@@anotherExcuse": {
+    "description": "Une autre excuse"
+  },
+  "changeLanguage": "Changer de langue",
+  "@@changeLanguage": {
+    "description": "Changer de langue"
+  },
+  "privacyPolicy": "Politique de confidentialité",
+  "@@privacyPolicy": {
+    "description": "Politique de confidentialité"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "categories": "Famiglia, Ufficio, Bambini, Scuola, Festa",
+  "@@categories": {
+    "description": [
+      "Famiglia",
+      "Ufficio",
+      "Bambini",
+      "Scuola",
+      "Festa"
+    ]
+  },
+  "copied": "Copiato negli appunti!",
+  "@@copied": {
+    "description": "Copiato negli appunti!"
+  },
+  "copyError": "Errore durante la copia!",
+  "@@copyError": {
+    "description": "Errore durante la copia!"
+  },
+  "anotherExcuse": "Un'altra scusa",
+  "@@anotherExcuse": {
+    "description": "Un'altra scusa"
+  },
+  "changeLanguage": "Cambia lingua",
+  "@@changeLanguage": {
+    "description": "Cambia lingua"
+  },
+  "privacyPolicy": "Informativa sulla privacy",
+  "@@privacyPolicy": {
+    "description": "Informativa sulla privacy"
+  }
+}

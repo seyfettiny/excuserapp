@@ -1,0 +1,32 @@
+{
+  "categories": "Aile, Ofis, Çocuklar, Okul, Parti",
+  "@@categories": {
+    "description": [
+      "Aile",
+      "Ofis",
+      "Çocuklar",
+      "Okul",
+      "Parti"
+    ]
+  },
+  "copied": "Panoya kopyalandı!",
+  "@@copied": {
+    "description": "Panoya kopyalandı!"
+  },
+  "copyError": "Kopyalama başarısız!",
+  "@@copyError": {
+    "description": "Kopyalama başarısız!"
+  },
+  "anotherExcuse": "Başka bir bahane",
+  "@@anotherExcuse": {
+    "description": "Başka bir bahane"
+  },
+  "changeLanguage": "Dili değiştir",
+  "@@changeLanguage": {
+    "description": "Dili değiştir"
+  },
+  "privacyPolicy": "Gizlilik politikası",
+  "@@privacyPolicy": {
+    "description": "Gizlilik politikası"
+  }
+}

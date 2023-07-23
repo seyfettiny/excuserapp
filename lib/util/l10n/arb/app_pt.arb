@@ -1,0 +1,32 @@
+{
+  "categories": "Família, Escritório, Crianças, Escola, Festa",
+  "@@categories": {
+    "description": [
+      "Família",
+      "Escritório",
+      "Crianças",
+      "Escola",
+      "Festa"
+    ]
+  },
+  "copied": "Copiado para a área de transferência!",
+  "@@copied": {
+    "description": "Copiado para a área de transferência!"
+  },
+  "copyError": "Falha ao copiar!",
+  "@@copyError": {
+    "description": "Falha ao copiar!"
+  },
+  "anotherExcuse": "Outra desculpa",
+  "@@anotherExcuse": {
+    "description": "Outra desculpa"
+  },
+  "changeLanguage": "Alterar idioma",
+  "@@changeLanguage": {
+    "description": "Alterar idioma"
+  },
+  "privacyPolicy": "Política de privacidade",
+  "@@privacyPolicy": {
+    "description": "Política de privacidade"
+  }
+}

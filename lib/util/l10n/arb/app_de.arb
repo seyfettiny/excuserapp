@@ -1,0 +1,32 @@
+{
+  "categories": "Familie, Büro, Kinder, Schule, Party",
+  "@@categories": {
+    "description": [
+      "Familie",
+      "Büro",
+      "Kinder",
+      "Schule",
+      "Party"
+    ]
+  },
+  "copied": "In die Zwischenablage kopiert!",
+  "@@copied": {
+    "description": "In die Zwischenablage kopiert!"
+  },
+  "copyError": "Kopieren fehlgeschlagen!",
+  "@@copyError": {
+    "description": "Kopieren fehlgeschlagen!"
+  },
+  "anotherExcuse": "Eine andere Ausrede",
+  "@@anotherExcuse": {
+    "description": "Eine andere Ausrede"
+  },
+  "changeLanguage": "Sprache ändern",
+  "@@changeLanguage": {
+    "description": "Sprache ändern"
+  },
+  "privacyPolicy": "Datenschutzrichtlinie",
+  "@@privacyPolicy": {
+    "description": "Datenschutzrichtlinie"
+  }
+}

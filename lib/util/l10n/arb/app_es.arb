@@ -1,0 +1,32 @@
+{
+  "categories": "Familia, Oficina, Niños, Escuela, Fiesta",
+  "@@categories": {
+    "description": [
+      "Familia",
+      "Oficina",
+      "Niños",
+      "Escuela",
+      "Fiesta"
+    ]
+  },
+  "copied": "¡Copiado al portapapeles!",
+  "@@copied": {
+    "description": "¡Copiado al portapapeles!"
+  },
+  "copyError": "¡Error al copiar!",
+  "@@copyError": {
+    "description": "¡Error al copiar!"
+  },
+  "anotherExcuse": "Otra excusa",
+  "@@anotherExcuse": {
+    "description": "Otra excusa"
+  },
+  "changeLanguage": "Cambiar idioma",
+  "@@changeLanguage": {
+    "description": "Cambiar idioma"
+  },
+  "privacyPolicy": "Política de privacidad",
+  "@@privacyPolicy": {
+    "description": "Política de privacidad"
+  }
+}

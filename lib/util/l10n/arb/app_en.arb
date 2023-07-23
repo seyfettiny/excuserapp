@@ -1,0 +1,32 @@
+{
+  "categories": "Family, Office, Children, College, Party",
+  "@@categories": {
+    "description": [
+      "Family",
+      "Office",
+      "Children",
+      "College",
+      "Party"
+    ]
+  },
+  "copied": "Copied to clipboard!",
+  "@@copied": {
+    "description": "Copied to clipboard!"
+  },
+  "copyError": "Copy failed!",
+  "@@copyError": {
+    "description": "Copy failed!"
+  },
+  "anotherExcuse": "Another excuse",
+  "@@anotherExcuse": {
+    "description": "Another excuse"
+  },
+  "changeLanguage": "Change language",
+  "@@changeLanguage": {
+    "description": "Change language"
+  },
+  "privacyPolicy": "Privacy policy",
+  "@@privacyPolicy": {
+    "description": "Privacy policy"
+  }
+}
