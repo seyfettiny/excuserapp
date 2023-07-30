@@ -1,8 +1,11 @@
 import 'package:drift/drift.dart';
+import 'package:flutter/material.dart' hide Table;
 
+import '../../../constants/app_constants.dart';
+import '../../../util/get_locale.dart';
+import '../../models/excuse_model.dart';
 import 'excuse_table.dart';
 import 'settings_table.dart';
-import '../../models/excuse_model.dart';
 
 part 'database.g.dart';
 
@@ -139,8 +142,9 @@ class ExcuseDatabase extends _$ExcuseDatabase {
     final result = await query.getSingle().then((value) {
       return value;
     }).onError((error, stackTrace) async {
-      setLocale("en");
-      return const SettingsTableData(id: 0, language: "en");
+      var currentLocale = GetLocale.getLocale();
+      setLocale(currentLocale);
+      return SettingsTableData(id: 0, language: currentLocale);
     });
 
     return result.language;

@@ -1,5 +1,6 @@
-import 'dart:io';
 import 'dart:ui';
+
+import '../../../util/get_locale.dart';
 
 import '../../../data/datasources/local/database.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +11,7 @@ class AppLocaleCubit extends Cubit<AppLocaleState> {
   Locale get language => state.locale;
   final ExcuseDatabase database;
   AppLocaleCubit(this.database)
-      : super(AppLocaleInitial(Locale(Platform.localeName))) {
+      : super(AppLocaleInitial(Locale(GetLocale.getLocale()))) {
     getLanguage();
   }
 
