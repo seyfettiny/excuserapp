@@ -1,7 +1,4 @@
-import 'dart:math';
-
 import '../../constants/app_constants.dart';
-import '../../data/datasources/remote/excuser_api.dart';
 import '../../domain/usecases/get_random_excuse.dart';
 import '../../domain/usecases/get_random_excuse_by_category.dart';
 import '../cubit/locale/app_locale_cubit.dart';
